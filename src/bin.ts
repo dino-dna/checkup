@@ -1,23 +1,23 @@
 import { menubar } from 'menubar'
-import { app, Menu, Tray } from 'electron'
+import { app, nativeImage } from 'electron'
 import { resolve } from 'path'
+import { devWebIndex, prodWebIndex, isDev } from './env'
+
+export type Status = 'ok' | 'pending' | 'not_ok'
+const getStatusIcon = (status: Status) =>
+  nativeImage
+    .createFromPath(resolve(__dirname, '..', 'assets', `status_${status}.png`))
+    .resize({ width: 16, height: 16 })
 
 app.on('ready', () => {
-  const tray = new Tray(resolve(__dirname, '..', 'assets', 'kitty.png'))
-  const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item1', type: 'radio' },
-    { label: 'Item2', type: 'radio' },
-    { label: 'Item3', type: 'radio', checked: true },
-    { label: 'Item4', type: 'radio' }
-  ])
-  tray.setContextMenu(contextMenu)
-
+  const icon = getStatusIcon('ok')
   const mb = menubar({
-    tray
+    icon,
+    index: isDev ? devWebIndex : prodWebIndex,
+    browserWindow: { y: 24, transparent: false }
   })
 
   mb.on('ready', () => {
-    console.log('Menubar app is ready.')
     // your app code here
   })
 })

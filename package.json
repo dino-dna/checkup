@@ -18,18 +18,27 @@
     "@types/bluebird": "^3.5.28",
     "@types/fs-extra": "^8.0.0",
     "@types/node": "^12.11.1",
+    "@types/react": "^16.9.7",
+    "@types/react-dom": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
     "electron": "^6.0.12",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
     "prettier-standard": "^15.0.1",
     "standardx": "^5.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "run-s compile bundle",
+    "build:watch": "run-p compile:watch bundle:watch",
+    "bundle": "parcel build src/web/index.html",
+    "bundle:watch": "parcel src/web/index.html",
+    "compile": "tsc",
+    "compile:watch": "tsc -w",
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix"
   },
@@ -71,5 +80,10 @@
     "ignore": [
       "**/*.d.ts"
     ]
+  },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom/test-utils": "preact/test-utils",
+    "react-dom": "preact/compat"
   }
 }

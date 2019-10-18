@@ -2,8 +2,8 @@ import { menubar } from 'menubar'
 import { app, nativeImage } from 'electron'
 import { resolve } from 'path'
 import { devWebIndex, prodWebIndex, isDev } from './env'
+import { Status } from './interfaces'
 
-export type Status = 'ok' | 'pending' | 'not_ok'
 const getStatusIcon = (status: Status) =>
   nativeImage
     .createFromPath(resolve(__dirname, '..', 'assets', `status_${status}.png`))
@@ -14,7 +14,7 @@ app.on('ready', () => {
   const mb = menubar({
     icon,
     index: isDev ? devWebIndex : prodWebIndex,
-    browserWindow: { y: 24, transparent: false }
+    browserWindow: { y: 24, transparent: false, width: 300 }
   })
 
   mb.on('ready', () => {

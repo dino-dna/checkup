@@ -2,17 +2,6 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.tests {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0;
-  li {
-    padding: 6px 0px;
-    border-top: 1px solid lightgrey;
-  }
-  border-bottom: 1px solid lightgrey;
-}
-
 .config.row {
   align-items: center;
   color: darkgray;
@@ -31,5 +20,3 @@ html {
     margin-left: 4px;
   }
 }
-
-

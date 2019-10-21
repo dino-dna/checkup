@@ -8,11 +8,12 @@ const onStartPoll: (opts: {
   jobs: JobsByName
   name: string
   actions: AppState['actions']
-}) => Promise<NodeJS.Timer> = async ({ actions, jobs, name }) => {
+}) => Promise<void> = async ({ actions, jobs, name }) => {
   const now = new Date()
   const job = jobs[name]
   const nextPoll = job.pollDurationMs || 10000
-  return Promise.resolve(job.fn())
+  job.state.status = 'pending'
+  Promise.resolve(job.fn())
     .then(res => {
       if (typeof res === 'string') job.state!.message = res
       job.state.lastRunDate = now
@@ -60,7 +61,7 @@ export async function rectify ({
     if (!oldJob) {
       // init new state
       job.state = { status: 'pending' }
-      job.state!.nextRunTimer = await onStartPoll({
+      await onStartPoll({
         name: job.name,
         jobs,
         actions

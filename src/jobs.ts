@@ -1,7 +1,7 @@
 import { ConfigureFn, AppState, Job, JobsByName } from './interfaces'
-import fetch from 'node-fetch'
-import * as fs from 'fs-extra'
 import { getFirstExistingFilename } from './files'
+import * as fs from 'fs-extra'
+import fetch from 'node-fetch'
 const nodeEval = require('node-eval')
 
 const onStartPoll: (opts: {

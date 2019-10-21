@@ -1,41 +1,38 @@
-import { menubar } from 'menubar'
-import { app, nativeImage } from 'electron'
-import { resolve, dirname } from 'path'
-import { devWebIndex, prodWebIndex, isDev } from './env'
-import { Status } from './interfaces'
-import { upsertConfigDir } from './configure'
-
-const getStatusIcon = (status: Status) =>
-  nativeImage
-    .createFromPath(resolve(__dirname, '..', 'assets', `status_${status}.png`))
-    .resize({ width: 16, height: 16 })
+import { app } from 'electron'
+import { create as createMenubar } from './menubar'
+import {
+  upsertConfigDir,
+  debouncedReload,
+  getConfigFilename,
+  reload
+} from './configure'
+import { AppState } from './interfaces'
+import { create } from './app.actions'
 
 app.on('ready', async () => {
   await upsertConfigDir()
-  const icon = getStatusIcon('ok')
-  const dir = dirname(prodWebIndex)
-  const mb = menubar({
-    icon,
-    dir,
-    // index: prodWebIndex, // isDev ? devWebIndex : prodWebIndex,
-    preloadWindow: isDev,
-    browserWindow: {
-      darkTheme: true,
-      titleBarStyle: isDev ? 'default' : 'hidden',
-      y: 24,
-      transparent: false,
-      width: 300,
-      frame: isDev,
-      show: isDev,
-      webPreferences: {
-        devTools: isDev,
-        nodeIntegration: true // isDev
-      }
-    }
+  const mb = createMenubar()
+  const appState: AppState = {
+    actions: {} as any, // hacks
+    state: 'OK',
+    jobs: {}
+  }
+  appState.actions = create({
+    menubar: mb,
+    appState
   })
-
-  mb.on('ready', () => {
-    // your app code here
-    ;(mb as any)._browserWindow.openDevTools()
+  ;['after-hide', 'after-show'].map(eventName => {
+    mb.on(eventName, () => reloadConfig(appState))
   })
+  reloadConfig(appState)
 })
+
+const reloadConfig = (appState: AppState) =>
+  debouncedReload({ appState, configFilename: getConfigFilename() })
+    .then(() => (appState.errorMessage = ''))
+    .catch((err: Error) => {
+      console.log(err)
+      appState.state = 'BAD_CONFIG_FILE'
+      appState.errorMessage = err.message
+    })
+    .then(() => appState.actions.onStateUpdated())

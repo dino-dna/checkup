@@ -1,5 +1,6 @@
 import Fetch from 'node-fetch'
 import fs from 'fs-extra'
+import { AppActions } from './app.actions'
 
 export type Status = 'ok' | 'pending' | 'not_ok'
 
@@ -19,20 +20,35 @@ export type Toolkit = {
   fetch: typeof Fetch
   fs: typeof fs
 }
-
-export type CheckResult =
-  | boolean
-  | {
-      errorMessage: string
-    }
-  | {
-      successMessage: string
-    }
-export type Check = {
+export type JobResponsePrimative = boolean | string
+export type Job = {
+  fn: () => JobResponsePrimative | Promise<JobResponsePrimative>
+  pollDurationMs?: number
   name: string
-  fn: () => CheckResult | Promise<CheckResult>
+  state: {
+    status: Status
+    nextRunDate?: Date
+    message?: string
+    lastRunDate?: Date
+    lastSuccess?: Date
+    lastFailure?: Date
+    nextRunTimer?: NodeJS.Timeout
+  }
+}
+export type ConfigureFn = (toolkit: Toolkit) => Omit<Job, 'state'>[]
+export type JobsByName = {
+  [jobName: string]: Job
 }
 
-export type CheckupConfig = {
-  checks: Check[]
+export interface WithJobs {
+  jobs: JobsByName
+}
+
+export type AppStates = 'BAD_CONFIG_FILE' | 'OK'
+
+export type AppState = {
+  actions: AppActions
+  state: AppStates
+  jobs: JobsByName
+  errorMessage?: string
 }

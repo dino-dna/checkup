@@ -1,31 +1,39 @@
 import React from 'react'
-import { Status, TestResult, StatusIcons } from '../interfaces'
+import { StatusIcons, Job } from '../interfaces'
 import './Statuses.scss'
 
-const toStatusIcon = (status: Status) => (
-  <i
-    className={`${
-      status === 'ok'
-        ? StatusIcons.OK
-        : status === 'not_ok'
-        ? StatusIcons.NOT_OK
-        : StatusIcons.PENDING
-    }`}
-  />
-)
+const toStatusIcon = (job: Job) => {
+  // if (!job || !job.state) {
+  // debugger
+  // }
+  const {
+    state: { status }
+  } = job
+  return (
+    <i
+      className={`${
+        status === 'ok'
+          ? StatusIcons.OK
+          : status === 'not_ok'
+          ? StatusIcons.NOT_OK
+          : StatusIcons.PENDING
+      }`}
+    />
+  )
+}
 
-export const Statuses = ({ results }: { results: TestResult[] }) => {
-  return !results.length ? (
-    <span className='tests' children='Click "Configure" and setup a check' />
+export const Statuses = ({ jobs }: { jobs: Job[] }) => {
+  return !jobs.length ? (
+    <span className='tests' children='Click "Configure" and setup a job' />
   ) : (
     <ol
       className='tests'
-      children={results.map((result, i) => (
+      children={jobs.map((job, i) => (
         <div key={i}>
-          {toStatusIcon(result.status)}
-          {result.name}
+          {toStatusIcon(job)}
+          {job.name}
           {' | '}
-          {result.lastSuccessTime.toISOString()}
+          {job.state.lastSuccess ? job.state.lastSuccess : '-'}
         </div>
       ))}
     />

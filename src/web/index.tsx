@@ -4,52 +4,66 @@ import { Statuses } from './Statuses'
 import './icons.min.css'
 import './app.scss'
 import * as configure from '../configure'
+import { FromServer } from '../messages'
+import { AppState } from '../interfaces'
+import { delay } from 'bluebird'
 
 const onConfigure = () => {
   const conf: typeof configure = window
     .require('electron')
     .remote.require('./configure')
-  const editP = (conf as any).edit(() => console.log('qwfppppp'))
-  console.log('arst', editP)
-  editP.then(() => console.log('jamon'))
+  conf.edit()
 }
 
-ReactDOM.render(
-  <div>
-    <h1>Statuses</h1>
-    <Statuses results={[]} />
-    <div className='config row' onClick={onConfigure}>
-      <i className='icono-gear' />
-      <span className='caption'>Configure</span>
-    </div>
-  </div>,
-  document.getElementById('app')
-)
+const refreshMainState: () => any = () => {
+  const conf: typeof configure = window
+    .require('electron')
+    .remote.require('./configure')
+  const nextState = conf.getState()
+  if (!nextState) {
+    console.log('refreshMainState: polling')
+    return delay(100).then(refreshMainState)
+  }
+  state.main = nextState
+  render()
+}
 
-function enableInspectMenu () {
-  const remote = require('remote')
-  const Menu = remote.require('menu')
-  const MenuItem = remote.require('menu-item')
-  let rightClickPosition: { x: number; y: number } | null = null
-  const menu = new Menu()
-  const menuItem = new MenuItem({
-    label: 'Inspect Element',
-    click: () => {
-      remote
-        .getCurrentWindow()
-        .inspectElement(rightClickPosition!.x, rightClickPosition!.y)
-    }
-  })
-  menu.append(menuItem)
-  window.addEventListener(
-    'contextmenu',
-    e => {
-      e.preventDefault()
-      rightClickPosition = { x: e.x, y: e.y }
-      menu.popup(remote.getCurrentWindow())
-    },
-    false
+window.require('electron').ipcRenderer.on('bus', (evt, msg) => {
+  switch (msg) {
+    case FromServer.STATE_UPDATED:
+      return refreshMainState()
+    default:
+      throw new Error(`unsupported msg: ${msg}`)
+  }
+})
+
+const state: {
+  main: AppState | null
+} = {
+  main: null
+}
+
+const render = () =>
+  ReactDOM.render(
+    <div>
+      <h1>Statuses</h1>
+      {state.main && state.main.state === 'OK' ? (
+        <Statuses jobs={state.main ? Object.values(state.main.jobs) : []} />
+      ) : (
+        <>
+          <h2>Bad config</h2>
+          <p>
+            Bad configuration file detected{' '}
+            {state.main!.errorMessage || 'unknown error'}
+          </p>
+        </>
+      )}
+      <div className='config row' onClick={onConfigure}>
+        <i className='icono-gear' />
+        <span className='caption'>Configure</span>
+      </div>
+    </div>,
+    document.getElementById('app')
   )
-}
 
-enableInspectMenu()
+refreshMainState() // render is a side-effect

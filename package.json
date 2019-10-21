@@ -15,6 +15,7 @@
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "menubar": "^6.0.8",
+    "moment": "^2.24.0",
     "node-eval": "^2.0.0",
     "node-fetch": "^2.6.0",
     "preact": "^10.0.0",

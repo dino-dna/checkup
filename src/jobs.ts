@@ -11,7 +11,7 @@ const onStartPoll: (opts: {
 }) => Promise<NodeJS.Timer> = async ({ actions, jobs, name }) => {
   const now = new Date()
   const job = jobs[name]
-  const nextPoll = job.pollDurationMs || 60000
+  const nextPoll = job.pollDurationMs || 10000
   return Promise.resolve(job.fn())
     .then(res => {
       if (typeof res === 'string') job.state!.message = res
@@ -29,7 +29,7 @@ const onStartPoll: (opts: {
       job.state!.lastRunDate = now
       job.state.nextRunDate = new Date(now.getTime() + nextPoll)
       actions.onStateUpdated()
-      return setTimeout(job.fn, nextPoll)
+      return setTimeout(() => onStartPoll({ actions, jobs, name }), nextPoll)
     })
 }
 export async function rectify ({

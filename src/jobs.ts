@@ -2,6 +2,7 @@ import { ConfigureFn, AppState, Job, JobsByName } from './interfaces'
 import { getFirstExistingFilename } from './files'
 import * as fs from 'fs-extra'
 import fetch from 'node-fetch'
+import { isDev } from './env'
 const nodeEval = require('node-eval')
 
 const onStartPoll: (opts: {
@@ -11,7 +12,7 @@ const onStartPoll: (opts: {
 }) => Promise<void> = async ({ actions, jobs, name }) => {
   const now = new Date()
   const job = jobs[name]
-  const nextPoll = job.pollDurationMs || 10000
+  const nextPoll = job.pollDurationMs || (isDev ? 10000 : 60000 * 10)
   job.state.status = 'pending'
   Promise.resolve(job.fn())
     .then(res => {

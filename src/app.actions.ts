@@ -23,10 +23,10 @@ export const create = ({
           ? 'not_ok'
           : !jobStatuses.length
             ? 'pending'
-            : jobStatuses.some(status => status === 'pending')
-              ? 'pending'
-              : jobStatuses.some(status => status === 'not_ok')
-                ? 'not_ok'
+            : jobStatuses.some(status => status === 'not_ok')
+              ? 'not_ok'
+              : jobStatuses.some(status => status === 'pending')
+                ? 'pending'
                 : 'ok'
       mb.tray.setImage(getStatusIcon(trayStatus))
       const window = getWindow()

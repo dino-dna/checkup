@@ -12,7 +12,10 @@
       "protocol": "inspector",
       "skipFiles": [
         "<node_internals>/**/*.js"
-      ]
+      ],
+      "env": {
+        "ELECTRON_IS_DEV": 1
+      }
     },
     {
       "type": "node",

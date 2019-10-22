@@ -3,10 +3,14 @@ import { StatusIcons, Job } from '../interfaces'
 import './Statuses.scss'
 import moment from 'moment'
 
+const toMessageDom = (msg: string) => (
+  <>
+    <br />
+    <span className='job-error-msg' children={`Error: ${msg}`} />
+  </>
+)
+
 const toStatusIcon = (job: Job) => {
-  // if (!job || !job.state) {
-  // debugger
-  // }
   const {
     state: { status }
   } = job
@@ -32,18 +36,15 @@ const getNextRunEstimate = (job: Job) => {
 
 export const Statuses = ({ jobs }: { jobs: Job[] }) => {
   return !jobs.length ? (
-    <span className='tests' children='Click "Configure" and setup a job' />
+    <span className='jobs' children='Click "Configure" and setup a job' />
   ) : (
     <ol
-      className='tests'
+      className='jobs'
       children={jobs.map((job, i) => (
-        <div style={{ clear: 'both' }} key={i}>
+        <div className='job' style={{ clear: 'both' }} key={i}>
           <span children={toStatusIcon(job)} />
-          <span children={job.name} />
-          <span
-            children={job.state.lastSuccess ? job.state.lastSuccess : '-'}
-          />
-          {/* <br /> */}
+          <span className='job-name' children={job.name} />
+          <span children={!!job.state.lastSuccess && job.state.lastSuccess} />
           <span
             style={{
               float: 'right',
@@ -54,6 +55,7 @@ export const Statuses = ({ jobs }: { jobs: Job[] }) => {
             }}
             children={getNextRunEstimate(job)}
           />
+          {!!job.state.message && toMessageDom(job.state.message)}
         </div>
       ))}
     />

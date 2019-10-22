@@ -1,7 +1,7 @@
 {
   "name": "checkup",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",
   "license": "MIT",
@@ -12,6 +12,7 @@
     "@types/node-fetch": "^2.5.2",
     "application-config-path": "^0.1.0",
     "bluebird": "^3.7.1",
+    "electron-is-dev": "^1.1.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "menubar": "^6.0.8",
@@ -31,6 +32,7 @@
     "@typescript-eslint/parser": "^2.4.0",
     "ava": "^2.4.0",
     "electron": "^6",
+    "electron-builder": "^21.2.0",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "npm-run-all": "^4.1.5",
@@ -42,16 +44,19 @@
     "typescript": "^3.6.4"
   },
   "scripts": {
-    "build": "run-s compile bundle",
     "build:watch": "run-p compile:watch bundle:watch",
-    "bundle": "parcel build --public-url ./ src/web/index.html",
-    "bundle:watch": "parcel watch --no-hmr --public-url ./ src/web/index.html",
-    "compile": "tsc",
+    "build": "run-s compile bundle",
+    "bundle:watch": "parcel watch --out-dir dist_web --no-hmr --public-url ./ src/web/index.html",
+    "bundle": "parcel build --out-dir dist_web --public-url ./ src/web/index.html",
     "compile:watch": "tsc -w",
+    "compile": "tsc",
+    "dist": "DEBUG=electron-builder electron-builder",
+    "electron": "NODE_ENV=production electron src/bin.js",
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
-    "test": "NODE_ENV=test ava",
-    "electron": "NODE_ENV=production electron src/bin.js"
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "NODE_ENV=test ava"
   },
   "keywords": [
     "health",
@@ -109,5 +114,11 @@
     "files": [
       "test/**.test.ts"
     ]
+  },
+  "build": {
+    "appId": "cdaringe.dinodna.checkup",
+    "mac": {
+      "category": "productivity"
+    }
   }
 }

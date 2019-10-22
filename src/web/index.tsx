@@ -45,8 +45,8 @@ const state: {
 
 const render = () =>
   ReactDOM.render(
-    <div>
-      <h1>Statuses</h1>
+    <div id='checkup'>
+      <h4 style={{ borderTop: 'none' }}>Statuses</h4>
       {state.main && state.main.state === 'OK' ? (
         <Statuses jobs={state.main ? Object.values(state.main.jobs) : []} />
       ) : (
@@ -58,6 +58,7 @@ const render = () =>
           </p>
         </>
       )}
+      <div style={{ flexGrow: 1 }} />
       <div className='config row' onClick={onConfigure}>
         <i className='icono-gear' />
         <span className='caption'>Configure</span>

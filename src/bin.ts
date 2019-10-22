@@ -3,8 +3,7 @@ import { create as createMenubar } from './menubar'
 import {
   upsertConfigDir,
   debouncedReload,
-  getConfigFilename,
-  reload
+  getConfigFilename
 } from './configure'
 import { AppState } from './interfaces'
 import { create } from './app.actions'

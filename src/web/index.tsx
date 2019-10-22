@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Statuses } from './Statuses'
+import { Statuses } from './components/Statuses'
 import './icons.min.css'
 import './app.scss'
 import * as configure from '../configure'

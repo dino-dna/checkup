@@ -8,6 +8,7 @@ export const createAppState: () => AppState = () => {
     state: 'OK'
   }
   appState.actions = create({
+    electron: {} as any,
     menubar: {} as any,
     appState
   })

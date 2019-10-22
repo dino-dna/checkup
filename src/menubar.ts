@@ -1,16 +1,19 @@
 import { menubar } from 'menubar'
-import { nativeImage } from 'electron'
+import Electron from 'electron'
 import { prodWebIndex, isDev } from './env'
 import { resolve, dirname } from 'path'
 import { Status } from './interfaces'
 
-export const getStatusIcon = (status: Status) =>
+export const getStatusIcon = (
+  nativeImage: typeof Electron['nativeImage'],
+  status: Status
+) =>
   nativeImage
     .createFromPath(resolve(__dirname, '..', 'assets', `status_${status}.png`))
     .resize({ width: 16, height: 16 })
 
-export function create () {
-  const icon = getStatusIcon('ok')
+export function create (electron: typeof Electron) {
+  const icon = getStatusIcon(electron.nativeImage, 'ok')
   const dir = dirname(prodWebIndex)
   const mb = menubar({
     browserWindow: {

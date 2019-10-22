@@ -1,8 +1,7 @@
 import { copyFile, mkdirp, lstat } from 'fs-extra'
 import { resolve } from 'path'
-import { shell } from 'electron'
+import Electron from 'electron'
 import { debounce } from 'lodash'
-import * as st from 'typescript'
 import { rectify } from './jobs'
 import { AppState } from './interfaces'
 
@@ -23,7 +22,8 @@ export const upsertConfigDir = async () => {
   })
 }
 
-export const edit = () => shell.showItemInFolder(getConfigFilename())
+export const edit = (electron: typeof Electron) =>
+  electron.shell.showItemInFolder(getConfigFilename())
 
 let dangerousAppStateRef: null | AppState = null
 export const getState = () => dangerousAppStateRef

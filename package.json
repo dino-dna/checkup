@@ -51,7 +51,7 @@
     "compile:watch": "tsc -w",
     "compile": "tsc",
     "dist": "DEBUG=electron-builder electron-builder",
-    "electron": "NODE_ENV=production electron src/bin.js",
+    "electron": "NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
     "pack": "electron-builder --dir",

@@ -18,8 +18,8 @@ export function create () {
       frame: isDev,
       show: isDev,
       transparent: false,
-      width: isDev ? 1000 : 300,
-      height: isDev ? 1000 : 600,
+      width: isDev ? 1000 : 450,
+      height: isDev ? 1000 : 400,
       y: 24,
       webPreferences: {
         devTools: isDev,

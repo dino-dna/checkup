@@ -1,5 +1,13 @@
-html, body {
-  font-family: Arial, Helvetica, sans-serif;
+@import '_variables';
+
+html {
+  background: $white;
+  color: $black;
+  font-family: $font-family;
+  line-height: $line-height;
+}
+
+body {
   margin: 0;
   padding: 0;
 }

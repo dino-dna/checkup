@@ -1,5 +1,6 @@
 import React from 'react'
-import { StatusIcons, Job } from '../../interfaces'
+import clsx from 'clsx'
+import { Job } from '../../interfaces'
 import './Statuses.scss'
 import moment from 'moment'
 
@@ -16,13 +17,11 @@ const toStatusIcon = (job: Job) => {
   } = job
   return (
     <i
-      className={`${
-        status === 'ok'
-          ? StatusIcons.OK
-          : status === 'not_ok'
-          ? StatusIcons.NOT_OK
-          : StatusIcons.PENDING
-      }`}
+      className={clsx('StatusIcon', {
+        'StatusIcon-ok icono-checkCircle': status === 'ok',
+        'StatusIcon-error icono-crossCircle': status === 'not_ok',
+        'StatusIcon-progress icono-sync': status !== 'ok' && status !== 'not_ok'
+      })}
     />
   )
 }

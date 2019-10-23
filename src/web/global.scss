@@ -1,0 +1,23 @@
+@import '_variables';
+
+html {
+  background: $white;
+  color: $black;
+  font-family: $font-family;
+  line-height: $line-height;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h3, h4 {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: #00000070;
+  margin: 0;
+  width: 100%;
+  padding: 1em;
+  border-bottom: 1px solid darkgray;
+  border-top: 1px solid darkgray;
+}

@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Statuses } from './components/Statuses'
 import './icons.min.css'
-import './app.scss'
+import './global.scss'
 import * as configure from '../configure'
 import { FromServer, FromUi } from '../messages'
-import { AppState } from '../interfaces'
 import { delay } from 'bluebird'
+import { Checkup, CheckupProps } from './components/Checkup'
 
 const onConfigure = () => {
   window
@@ -35,34 +34,14 @@ window.require('electron').ipcRenderer.on('bus', (evt, msg) => {
   }
 })
 
-const state: {
-  main: AppState | null
-} = {
+const state: CheckupProps['state'] = {
   main: null
 }
 
 const render = () =>
   ReactDOM.render(
-    <div id='checkup'>
-      <h4 style={{ borderTop: 'none' }}>Statuses</h4>
-      {state.main && state.main.state === 'OK' ? (
-        <Statuses jobs={state.main ? Object.values(state.main.jobs) : []} />
-      ) : (
-        <>
-          <h2>Bad config</h2>
-          <p>
-            Bad configuration file detected{' '}
-            {state.main!.errorMessage || 'unknown error'}
-          </p>
-        </>
-      )}
-      <div style={{ flexGrow: 1 }} />
-      <div className='config row' onClick={onConfigure}>
-        <i className='icono-gear' />
-        <span className='caption'>Configure</span>
-      </div>
-    </div>,
+    <Checkup onConfigure={onConfigure} state={state} />,
     document.getElementById('app')
   )
 
-refreshMainState() // render is a side-effect
+refreshMainState()

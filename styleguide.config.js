@@ -4,6 +4,7 @@ const pkg = require('./package.json')
 module.exports = {
   components: './src/web/components/**/*.{ts,tsx}',
   require: [
+    path.join(__dirname, 'src/web/global.scss'),
     path.join(__dirname, 'src/web/icons.min.css')
   ],
   title: pkg.title,

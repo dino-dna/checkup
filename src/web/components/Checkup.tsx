@@ -18,7 +18,12 @@ export const Checkup: React.FC<CheckupProps> = ({ onConfigure, state }) => (
     {state.main && state.main.state === 'OK' ? (
       <Statuses jobs={state.main ? Object.values(state.main.jobs) : []} />
     ) : (
-      <ErrorMessage>{state.main!.errorMessage || 'unknown error'}</ErrorMessage>
+      <ErrorMessage title='Bad config'>
+        <p>
+          Bad configuration file detected:{' '}
+          {state.main!.errorMessage || 'unknown error'}
+        </p>
+      </ErrorMessage>
     )}
     <div style={{ flexGrow: 1 }} />
     <ConfigButton onClick={onConfigure} />

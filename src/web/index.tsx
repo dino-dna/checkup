@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './icons.min.css'
-import './app.scss'
+import './global.scss'
 import * as configure from '../configure'
 import { FromServer, FromUi } from '../messages'
 import { delay } from 'bluebird'

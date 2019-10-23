@@ -3,25 +3,3 @@
   flex-direction: column;
   height: 100vh;
 }
-
-.config.row {
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid lightgrey;
-  color: darkgray;
-  cursor: pointer;
-  display: flex;
-  font-size: 18px;
-  justify-content: flex-end;
-  padding: 8px;
-  transition: all 200ms;
-  &:hover {
-    color: darkslategray;
-  }
-  &:hover i {
-    transform: rotate(90deg);
-  }
-  .caption {
-    margin-left: 4px;
-  }
-}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Statuses } from './Statuses'
 import { AppState } from '../../interfaces'
+import { ConfigButton } from './ConfigButton'
 import './Checkup.scss'
 
 export interface CheckupProps {
@@ -25,9 +26,6 @@ export const Checkup: React.FC<CheckupProps> = ({ onConfigure, state }) => (
       </>
     )}
     <div style={{ flexGrow: 1 }} />
-    <div className='config row' onClick={onConfigure}>
-      <i className='icono-gear' />
-      <span className='caption'>Configure</span>
-    </div>
+    <ConfigButton onClick={onConfigure} />
   </div>
 )

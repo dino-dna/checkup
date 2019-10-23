@@ -1,18 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Statuses } from './Statuses'
+import { Statuses } from './components/Statuses'
 import './icons.min.css'
 import './app.scss'
 import * as configure from '../configure'
-import { FromServer } from '../messages'
+import { FromServer, FromUi } from '../messages'
 import { AppState } from '../interfaces'
 import { delay } from 'bluebird'
 
 const onConfigure = () => {
-  const conf: typeof configure = window
+  window
     .require('electron')
-    .remote.require('./configure')
-  conf.edit()
+    .ipcRenderer.send('bus', FromUi.REQUEST_OPEN_CONFIG_FOLDER)
 }
 
 const refreshMainState: () => any = () => {
@@ -21,7 +20,6 @@ const refreshMainState: () => any = () => {
     .remote.require('./configure')
   const nextState = conf.getState()
   if (!nextState) {
-    console.log('refreshMainState: polling')
     return delay(100).then(refreshMainState)
   }
   state.main = nextState

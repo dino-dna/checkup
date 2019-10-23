@@ -1,12 +1,15 @@
-import { FromServer } from './messages'
-import { Menubar } from 'menubar'
 import { AppState, Status } from './interfaces'
+import { FromServer } from './messages'
 import { getStatusIcon } from './menubar'
+import { Menubar } from 'menubar'
+import Electron from 'electron'
 
 export const create = ({
+  electron,
   menubar: mb,
   appState
 }: {
+  electron: typeof Electron
   menubar: Menubar
   appState: AppState
 }) => {
@@ -28,7 +31,7 @@ export const create = ({
               : jobStatuses.some(status => status === 'pending')
                 ? 'pending'
                 : 'ok'
-      mb.tray.setImage(getStatusIcon(trayStatus))
+      mb.tray.setImage(getStatusIcon(electron.nativeImage, trayStatus))
       const window = getWindow()
       if (!window) {
         console.warn('[no window found]')

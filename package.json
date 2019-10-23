@@ -1,6 +1,6 @@
 {
   "name": "checkup",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",
@@ -12,7 +12,6 @@
     "@types/node-fetch": "^2.5.2",
     "application-config-path": "^0.1.0",
     "bluebird": "^3.7.1",
-    "electron-is-dev": "^1.1.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "menubar": "^6.0.8",
@@ -23,6 +22,11 @@
     "preact-compat": "^3.19.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-typescript": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@types/lodash": "^4.14.144",
@@ -31,6 +35,8 @@
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
     "ava": "^2.4.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
     "electron": "^6",
     "electron-builder": "^21.2.0",
     "husky": "^3.0.9",
@@ -38,24 +44,29 @@
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
     "prettier-standard": "^15.0.1",
+    "react-styleguidist": "^9.2.0",
     "sass": "^1.23.0",
+    "sass-loader": "^8.0.0",
     "standardx": "^5.0.0",
+    "style-loader": "^1.0.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2"
   },
   "scripts": {
     "build:watch": "run-p compile:watch bundle:watch",
     "build": "run-s compile bundle",
     "bundle:watch": "parcel watch --out-dir dist_web --no-hmr --public-url ./ src/web/index.html",
     "bundle": "parcel build --out-dir dist_web --public-url ./ src/web/index.html",
-    "compile:watch": "tsc -w",
     "compile": "tsc",
+    "compile:watch": "tsc -w",
     "dist": "DEBUG=electron-builder electron-builder",
     "electron": "NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
+    "styleguide": "styleguidist server",
     "test": "NODE_ENV=test ava"
   },
   "keywords": [
@@ -117,8 +128,61 @@
   },
   "build": {
     "appId": "cdaringe.dinodna.checkup",
+    "productName": "dinodna/checkup",
+    "copyright": "MIT",
     "mac": {
-      "category": "productivity"
-    }
+      "category": "productivity",
+      "icon": "assets/icons/win/icon.ico"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 440,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "artifactName": "dino-dna-checkup-${version}.${ext}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable"
+        }
+      ],
+      "icon": "assets/icons/win/icon.ico"
+    },
+    "nsis": {
+      "runAfterFinish": true,
+      "installerIcon": "assets/icons/win/icon.ico",
+      "artifactName": "electron-circleci-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "dinodna-checkup.exe"
+    },
+    "appx": {
+      "applicationId": "dinodina.checkup",
+      "backgroundColor": "#464646",
+      "identityName": "dinodina.checkup",
+      "publisherDisplayName": "cdaringe",
+      "artifactName": "dinodna-checkup-${version}.${ext}"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "releaseType": "release"
+      }
+    ]
   }
 }

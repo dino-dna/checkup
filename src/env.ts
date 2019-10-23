@@ -1,7 +1,6 @@
 import { resolve } from 'path'
-import electronIsDev from 'electron-is-dev'
 
-export const isDev = electronIsDev
+export const isDev = !!process.env.ELECTRON_IS_DEV
 export const prodWebIndex = `${resolve(
   __dirname,
   '..',

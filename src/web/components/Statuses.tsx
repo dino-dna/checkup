@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusIcons, Job } from '../interfaces'
+import { StatusIcons, Job } from '../../interfaces'
 import './Statuses.scss'
 import moment from 'moment'
 

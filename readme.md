@@ -3,8 +3,10 @@
 run and visualize status checks
 
 <span style='text-align: center;width: 100%; display: block;margin: auto;'>
-  <img style='display: block;' width='100px' src='./img/statusicon.png' />
-  <img style='display: block;' width='400px' src='./img/window.png' />
+  <img width='100px' src='./img/statusicon.png' />
+</span>
+<span style='text-align: center;width: 100%; display: block;margin: auto;'>
+  <img width='400px' src='./img/window.png' />
 </span>
 
 shows your health as a statusbar icon, and updates in realtime.

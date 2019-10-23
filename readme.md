@@ -1,11 +1,13 @@
 # checkup
 
-run and visualize status checks.
+run and visualize status checks
 
 <span style='text-align: center;width: 100%; display: block;margin: auto;'>
   <img style='display: block;' width='100px' src='./img/statusicon.png' />
   <img style='display: block;' width='400px' src='./img/window.png' />
 </span>
+
+shows your health as a statusbar icon, and updates in realtime.
 
 check your network service.  check your system daemons.  check your hardware.  check heartbeats, or check workflows.  check with scripts, check with binaries, check with docker, check with `<whatever>`.  we don't care what you check, we just provide a small interface and ui to present those checks in :)
 

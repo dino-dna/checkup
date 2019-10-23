@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "^2.4.0",
     "ava": "^2.4.0",
     "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
     "electron": "^6",
     "electron-builder": "^21.2.0",
@@ -60,15 +61,15 @@
     "bundle": "parcel build --out-dir dist_web --public-url ./ src/web/index.html",
     "compile": "tsc",
     "compile:watch": "tsc -w",
-    "dist": "DEBUG=electron-builder electron-builder",
-    "electron": "NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
+    "dist": "cross-env DEBUG=electron-builder electron-builder",
+    "electron": "cross-env NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
     "release": "electron-builder --publish always",
     "styleguide": "styleguidist server",
-    "test": "NODE_ENV=test ava"
+    "test": "cross-env NODE_ENV=test ava"
   },
   "keywords": [
     "health",

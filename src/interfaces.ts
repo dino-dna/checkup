@@ -11,12 +11,6 @@ export type TestResult = {
   lastSuccessTime: Date
 }
 
-export enum StatusIcons {
-  OK = 'icono-checkCircle',
-  NOT_OK = 'icono-crossCircle',
-  PENDING = 'icono-sync'
-}
-
 export type Toolkit = {
   execa: typeof execa
   fetch: typeof Fetch

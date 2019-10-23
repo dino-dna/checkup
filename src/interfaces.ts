@@ -1,6 +1,7 @@
 import Fetch from 'node-fetch'
 import fs from 'fs-extra'
 import { AppActions } from './app.actions'
+import execa from 'execa'
 
 export type Status = 'ok' | 'pending' | 'not_ok'
 
@@ -17,6 +18,7 @@ export enum StatusIcons {
 }
 
 export type Toolkit = {
+  execa: typeof execa
   fetch: typeof Fetch
   fs: typeof fs
 }

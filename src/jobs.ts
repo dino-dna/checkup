@@ -1,8 +1,9 @@
 import { ConfigureFn, AppState, Job, JobsByName } from './interfaces'
 import { getFirstExistingFilename } from './files'
-import * as fs from 'fs-extra'
-import fetch from 'node-fetch'
 import { isDev } from './env'
+import * as fs from 'fs-extra'
+import execa from 'execa'
+import fetch from 'node-fetch'
 const nodeEval = require('node-eval')
 
 const onStartPoll: (opts: {
@@ -52,7 +53,7 @@ export async function rectify ({
     throw new Error('config file must export function named configure')
   }
   const configure: ConfigureFn = createNextJobs.configure
-  const getJobsRes = configure({ fetch, fs })
+  const getJobsRes = configure({ execa, fetch, fs })
   const nextJobs = (await Promise.resolve(getJobsRes)) as Job[]
   const nextJobNames = new Set(nextJobs.map(job => job.name))
   const currJobNames = new Set(Object.values(jobs).map(job => job.name))

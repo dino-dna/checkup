@@ -12,6 +12,7 @@
     "@types/node-fetch": "^2.5.2",
     "application-config-path": "^0.1.0",
     "bluebird": "^3.7.1",
+    "execa": "^3.2.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "menubar": "^6.0.8",

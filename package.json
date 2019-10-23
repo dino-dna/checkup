@@ -66,6 +66,7 @@
     "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
+    "release": "electron-builder --publish always",
     "styleguide": "styleguidist server",
     "test": "NODE_ENV=test ava"
   },

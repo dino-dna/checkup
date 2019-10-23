@@ -22,7 +22,7 @@ jobs:
     - name: test
       run: yarn test
     - name: release
-      run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn release
+      run: GH_TOKEN=${{ secrets.GH_TOKEN }} yarn release
 
   # build_on_win:
   #   runs-on: windows-2016

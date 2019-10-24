@@ -1,7 +1,7 @@
 // See: https://medium.com/@TwitterArchiveEraser/notarize-electron-apps-7a5f988406db
 import fs from 'fs'
 import path from 'path'
-import notarize from 'electron-notarize'
+import { notarize } from 'electron-notarize'
 
 const pkg = require('../../package.json')
 
@@ -25,18 +25,16 @@ module.exports = async function maybeNotarize (params: any) {
   if (!appleId) throw new Error('no appleid found')
   const appleIdPassword = process.env.AIP
   if (!appleIdPassword) throw new Error('no appleIdPassword found')
-  await notarize
-    .notarize({
-      appBundleId,
-      appPath,
-      appleId,
-      appleIdPassword
-    })
-    .catch(err => {
-      console.error(
-        `failed to notarize: ${err ? err.message : 'NO ERROR MESSAGE FOUND'}`
-      )
-      throw err
-    })
+  await notarize({
+    appBundleId,
+    appPath,
+    appleId,
+    appleIdPassword
+  }).catch((err: Error) => {
+    console.error(
+      `failed to notarize: ${err ? err.message : 'NO ERROR MESSAGE FOUND'}`
+    )
+    throw err
+  })
   console.log(`Done notarizing ${appBundleId}`)
 }

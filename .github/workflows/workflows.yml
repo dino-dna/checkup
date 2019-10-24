@@ -18,7 +18,11 @@ jobs:
     - name: test
       run: yarn test
     - name: release
-      run: GH_TOKEN=${{ secrets.GH_TOKEN }} yarn release # electron-builder --publish always
+      env:
+        CSC_LINK: ${{ secrets.CSC_LINK }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      run: yarn release # electron-builder --publish always
 
   build_on_win:
     runs-on: windows-2016

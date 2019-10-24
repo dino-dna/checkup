@@ -1,6 +1,6 @@
 {
   "name": "checkup",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",

@@ -1,6 +1,6 @@
 {
   "name": "checkup",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",
@@ -131,9 +131,6 @@
     ]
   },
   "build": {
-    "appId": "cdaringe.dinodna.checkup",
-    "productName": "dinodna/checkup",
-    "copyright": "MIT",
     "mac": {
       "category": "productivity",
       "icon": "assets/icons/win/icon.ico"
@@ -176,9 +173,7 @@
       "artifactName": "dinodna-checkup.exe"
     },
     "appx": {
-      "applicationId": "dinodina.checkup",
       "backgroundColor": "#464646",
-      "identityName": "dinodina.checkup",
       "publisherDisplayName": "cdaringe",
       "artifactName": "dinodna-checkup-${version}.${ext}"
     },

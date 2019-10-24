@@ -1,6 +1,6 @@
 {
   "name": "checkup",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",
@@ -42,6 +42,7 @@
     "css-loader": "^3.2.0",
     "electron": "^6",
     "electron-builder": "^21.2.0",
+    "electron-notarize": "^0.1.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "npm-run-all": "^4.1.5",
@@ -131,9 +132,15 @@
     ]
   },
   "build": {
+    "appId": "org.dinodna.checkup",
+    "afterSign": "./scripts/hooks/after-sign.js",
     "mac": {
       "category": "productivity",
-      "icon": "assets/icons/win/icon.ico"
+      "icon": "assets/icons/win/icon.ico",
+      "gatekeeperAssess": false,
+      "hardenedRuntime": true,
+      "entitlements": "assets/mac/entitlements.mac.inherit.plist",
+      "entitlementsInherit": "assets/mac/entitlements.mac.inherit.plist"
     },
     "dmg": {
       "contents": [

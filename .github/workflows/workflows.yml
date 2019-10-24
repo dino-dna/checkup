@@ -19,6 +19,8 @@ jobs:
       run: yarn test
     - name: release
       env:
+        AID: ${{ secrets.AID }}
+        AIP: ${{ secrets.AIP }}
         CSC_LINK: ${{ secrets.CSC_LINK }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}

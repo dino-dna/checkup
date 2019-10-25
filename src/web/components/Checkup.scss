@@ -1,5 +1,20 @@
-#checkup {
+@import '../variables';
+
+.checkup {
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+// Styleguide-only `height`
+#rsg-root .checkup {
+  height: 400px;
+}
+
+.checkup-content {
+  flex: 2;
+  overflow: scroll;
+}
+.checkup-controls {
+  border-top: 2px solid $black;
 }

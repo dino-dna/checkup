@@ -1,3 +1,5 @@
+@import '../_variables';
+
 /// Text
 ///
 /// Styles for all user-interface text
@@ -35,5 +37,24 @@
   &-caption {
     font-size: 81.25%;  // 13px
     line-height: 1.231; // 16px
+  }
+}
+
+.Text-code {
+  background: $gray-light;
+  font-family: Menlo, 'Courier New', monospace;
+  font-size: 87.5%;
+  line-height: 1.429;
+}
+code.Text-code {
+  padding: .1rem .2rem;
+}
+pre.Text-code {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: .625rem;
+
+  code {
+    font: inherit;
   }
 }

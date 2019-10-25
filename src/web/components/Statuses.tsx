@@ -48,9 +48,9 @@ export const Statuses = ({ jobs }: { jobs: Job[] }) => {
             children={job.name}
             style={{ display: 'inline-block' }}
           />
-          <Caption
-            children={!!job.state.lastSuccess && job.state.lastSuccess}
-          />
+          {!!job.state.lastSuccess && (
+            <Caption children={job.state.lastSuccess} />
+          )}
           <Caption
             style={{
               float: 'right',

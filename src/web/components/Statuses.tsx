@@ -1,7 +1,8 @@
 import React from 'react'
 import clsx from 'clsx'
-import { Job } from '../../interfaces'
+import { Job as JobInterface } from '../../interfaces'
 import { Body, Caption } from './Text'
+import { Job } from './Job'
 import './Statuses.scss'
 import moment from 'moment'
 
@@ -12,54 +13,31 @@ const toMessageDom = (msg: string) => (
   </>
 )
 
-const toStatusIcon = (job: Job) => {
-  const {
-    state: { status }
-  } = job
-  return (
-    <i
-      className={clsx('StatusIcon', {
-        'StatusIcon-ok icono-checkCircle': status === 'ok',
-        'StatusIcon-error icono-crossCircle': status === 'not_ok',
-        'StatusIcon-progress icono-sync': status !== 'ok' && status !== 'not_ok'
-      })}
-    />
-  )
-}
-
+/*
 const getNextRunEstimate = (job: Job) => {
   if (!job.state.nextRunDate) return '?'
   const now = new Date().getTime()
   const duration = moment.duration(job.state.nextRunDate.getTime() - now, 'ms')
   return `next in: ${duration.humanize()}`
 }
+*/
 
-export const Statuses = ({ jobs }: { jobs: Job[] }) => {
+export const Statuses = ({ jobs }: { jobs: JobInterface[] }) => {
   return !jobs.length ? (
-    <div className='jobs jobs-empty'>
-      <Body center children='Click "Configure" and setup a job' />
+    <div className='Statuses'>
+      <Body
+        center
+        children='Click "Configure" and setup a job'
+        className='Statuses-empty'
+      />
     </div>
   ) : (
-    <ol
-      className='jobs'
-      children={jobs.map((job, i) => (
-        <div className='job' style={{ clear: 'both' }} key={i}>
-          <span children={toStatusIcon(job)} />
-          <Body
-            className='job-name'
-            children={job.name}
-            style={{ display: 'inline-block' }}
-          />
-          {!!job.state.lastSuccess && (
-            <Caption children={job.state.lastSuccess} />
-          )}
-          <Caption
-            className='job-estimate'
-            children={getNextRunEstimate(job)}
-          />
-          {!!job.state.message && toMessageDom(job.state.message)}
-        </div>
+    <ol className='Statuses'>
+      {jobs.map(job => (
+        <li key={job.name}>
+          <Job job={job} />
+        </li>
       ))}
-    />
+    </ol>
   )
 }

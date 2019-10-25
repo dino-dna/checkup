@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import clsx from 'clsx'
-import { Body, Caption } from './Text'
+import { Body, Caption, Code } from './Text'
 import { Job as JobInterface } from '../../interfaces'
 import './Job.scss'
 
@@ -47,7 +47,11 @@ export const Job: React.FC<JobProps> = ({
           {getNextRunEstimate(nextRunDate)}
         </Caption>
       </div>
-      {!!message && <Caption className='Job-message'>{message}</Caption>}
+      {!!message && (
+        <Code block className='Job-message'>
+          {message}
+        </Code>
+      )}
     </div>
   </div>
 )

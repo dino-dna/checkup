@@ -3,6 +3,7 @@
   "version": "0.0.8",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
+  "bugs": "https://github.com/dino-dna/checkup/issues",
   "author": "cdaringe <cdaringe@gmail.com>",
   "license": "MIT",
   "dependencies": {

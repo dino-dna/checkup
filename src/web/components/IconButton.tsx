@@ -14,3 +14,9 @@ export const GearIconButton: React.FC<IconButtonProps> = props => (
     <i className='icono-gear' />
   </IconButton>
 )
+
+export const IssueIconButton: React.FC<IconButtonProps> = props => (
+  <IconButton {...props}>
+    <i className='icono-exclamationCircle' />
+  </IconButton>
+)

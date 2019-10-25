@@ -1,13 +1,14 @@
 import React from 'react'
 import clsx from 'clsx'
 import { Job } from '../../interfaces'
+import { Body, Caption } from './Text'
 import './Statuses.scss'
 import moment from 'moment'
 
 const toMessageDom = (msg: string) => (
   <>
     <br />
-    <span className='job-error-msg' children={`Error: ${msg}`} />
+    <Caption className='job-error-msg' children={`Error: ${msg}`} />
   </>
 )
 
@@ -30,28 +31,30 @@ const getNextRunEstimate = (job: Job) => {
   if (!job.state.nextRunDate) return '?'
   const now = new Date().getTime()
   const duration = moment.duration(job.state.nextRunDate.getTime() - now, 'ms')
-  return <span children={`next in: ${duration.humanize()}`} />
+  return `next in: ${duration.humanize()}`
 }
 
 export const Statuses = ({ jobs }: { jobs: Job[] }) => {
   return !jobs.length ? (
-    <span className='jobs' children='Click "Configure" and setup a job' />
+    <div className='jobs jobs-empty'>
+      <Body center children='Click "Configure" and setup a job' />
+    </div>
   ) : (
     <ol
       className='jobs'
       children={jobs.map((job, i) => (
         <div className='job' style={{ clear: 'both' }} key={i}>
           <span children={toStatusIcon(job)} />
-          <span className='job-name' children={job.name} />
-          <span children={!!job.state.lastSuccess && job.state.lastSuccess} />
-          <span
-            style={{
-              float: 'right',
-              fontSize: 'small',
-              display: 'block',
-              color: 'gray',
-              fontStyle: 'italic'
-            }}
+          <Body
+            className='job-name'
+            children={job.name}
+            style={{ display: 'inline-block' }}
+          />
+          {!!job.state.lastSuccess && (
+            <Caption children={job.state.lastSuccess} />
+          )}
+          <Caption
+            className='job-estimate'
             children={getNextRunEstimate(job)}
           />
           {!!job.state.message && toMessageDom(job.state.message)}

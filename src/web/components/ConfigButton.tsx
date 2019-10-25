@@ -1,4 +1,5 @@
 import React from 'react'
+import { Body } from './Text'
 import './ConfigButton.scss'
 
 export const ConfigButton: React.FC<
@@ -6,6 +7,6 @@ export const ConfigButton: React.FC<
 > = props => (
   <div className='config row' {...props}>
     <i className='icono-gear' />
-    <span className='caption'>Configure</span>
+    <Body className='caption'>Configure</Body>
   </div>
 )

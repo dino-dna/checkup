@@ -25,13 +25,16 @@ ol.jobs {
   }
 }
 
-span.jobs {
-  color: lightgray;
+.job-estimate {
+  color: $gray;
   display: block;
-  padding: 0.5em;
-  width: 200px;
-  text-align: center;
-  margin: auto;
+  float: right;
+  font-style: italic;
+}
+
+.jobs-empty {
+  color: $gray;
+  padding: 1rem;
 }
 
 .StatusIcon-ok {

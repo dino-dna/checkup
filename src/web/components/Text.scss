@@ -1,0 +1,39 @@
+/// Text
+///
+/// Styles for all user-interface text
+.Text {
+  font: inherit;
+
+  &-bold {
+    font-weight: 700;
+  }
+  &-center {
+    text-align: center;
+  }
+
+  &-heading,
+  &-subheading,
+  &-body,
+  &-caption {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &-heading {
+    font-size: 150%; // 24px
+    line-height: 1;  // 24px
+  }
+  &-subheading {
+    font-size: 125%;  // 18px
+    line-height: 1.2; // 24px
+  }
+  &-body {
+    font-size: 100%;      // 16px
+    line-height: inherit; // 20px
+  }
+  &-caption {
+    font-size: 81.25%;  // 13px
+    line-height: 1.231; // 16px
+  }
+}

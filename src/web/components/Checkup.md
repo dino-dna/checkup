@@ -6,7 +6,7 @@
       state: 'OK',
       jobs: {
         'job-1': {
-          name: 'Cool skateboard tricks',
+          name: 'Cool skateboard tricks, but perhaps an extra long name that doesn\'t fit?',
           state: {
             nextRunDate: new Date(Date.now() + 60 * 60 * 1000),
             status: 'ok',

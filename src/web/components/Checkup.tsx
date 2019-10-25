@@ -1,13 +1,13 @@
 import React from 'react'
 import { Statuses } from './Statuses'
 import { AppState } from '../../interfaces'
-import { ConfigButton } from './ConfigButton'
 import { ErrorMessage } from './ErrorMessage'
+import { GearIconButton } from './IconButton'
 import { Body } from './Text'
 import './Checkup.scss'
 
 export interface CheckupProps {
-  onConfigure: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
+  onConfigure: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
   state: {
     main: AppState | null
   }
@@ -28,7 +28,7 @@ export const Checkup: React.FC<CheckupProps> = ({ onConfigure, state }) => (
       )}
     </main>
     <nav className='checkup-controls'>
-      <ConfigButton onClick={onConfigure} />
+      <GearIconButton onClick={onConfigure} title='Configure' />
     </nav>
   </div>
 )

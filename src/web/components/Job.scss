@@ -22,12 +22,16 @@
   padding-top: .4rem;
   flex: 2;
 }
-
-.Job-name {
-  margin-bottom: .25rem;
+.Job-content-top {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
 }
+
 .Job-next-run {
   color: $gray;
+  display: inline-block;
+  margin-left: .5rem;
 }
 .Job-message {
   color: $red;

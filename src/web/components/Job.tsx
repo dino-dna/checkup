@@ -41,10 +41,12 @@ export const Job: React.FC<JobProps> = ({
       />
     </div>
     <div className='Job-content'>
-      <Body className='Job-name'>{name}</Body>
-      <Caption className='Job-next-run'>
-        {getNextRunEstimate(nextRunDate)}
-      </Caption>
+      <div className='Job-content-top'>
+        <Body className='Job-name'>{name}</Body>
+        <Caption className='Job-next-run'>
+          {getNextRunEstimate(nextRunDate)}
+        </Caption>
+      </div>
       {!!message && <Caption className='Job-message'>{message}</Caption>}
     </div>
   </div>

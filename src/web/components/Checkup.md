@@ -3,6 +3,7 @@
   onConfigure={console.log}
   state={{
     main: {
+      state: 'OK',
       jobs: {
         'job-1': {
           name: 'Cool skateboard tricks',

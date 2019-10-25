@@ -1,14 +1,16 @@
 @import '../_variables';
 
 .Job {
-  display: flex;
-  padding: .75rem;
+  padding: 1rem .75rem 1rem 3.5rem;
+  position: relative;
 }
 
 /// Icons
 .Job-icon {
   color: $gray;
-  margin-right: .75rem;
+  left: .75rem;
+  position: absolute;
+  top: .6rem;
 }
 .Job-icon-ok {
   color: $green;
@@ -19,11 +21,8 @@
 
 /// Content
 .Job-content {
-  padding-top: .4rem;
-  flex: 2;
 }
 .Job-content-top {
-  align-items: flex-end;
   display: flex;
   justify-content: space-between;
 }
@@ -35,6 +34,6 @@
 }
 .Job-message {
   color: $red;
-  display: block;
-  margin-top: .25rem;
+  margin-top: .625rem;
+  overflow: scroll;
 }

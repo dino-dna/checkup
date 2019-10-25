@@ -23,20 +23,25 @@ const onStartPoll: (opts: {
       job.state.lastSuccess = now
       job.state.message = ''
       job.state.status = 'ok'
-      const duration = ((new Date().getTime() - now.getTime()) / 1000).toFixed(
-        1
-      )
-      log({
-        level: 'info',
-        message: `job ${job.name} succeded in ${duration}s`
-      })
     })
     .catch(err => {
       job.state.lastFailure = now
       job.state.message = err && err.message ? err.message : ''
       job.state.status = 'not_ok'
+      log({
+        level: 'error',
+        message: err.message,
+        tags: ['job-failure', job.name]
+      })
     })
     .then(() => {
+      const duration = ((new Date().getTime() - now.getTime()) / 1000).toFixed(
+        1
+      )
+      log({
+        level: 'info',
+        message: `job ${job.name} ran in ${duration}s`
+      })
       job.state!.lastRunDate = now
       job.state.nextRunDate = new Date(now.getTime() + nextPoll)
       actions.onStateUpdated()
@@ -100,7 +105,9 @@ export async function rectify ({
   const toRemoveJobNames = new Set(currJobNames)
   nextJobNames.forEach(name => toRemoveJobNames.delete(name))
   const toRemoveArr = Array.from(nextJobNames)
-  if (toRemoveArr.length) { log({ level: 'info', message: `removing jobs: ${toRemoveArr.join(', ')}` }) }
+  if (toRemoveArr.length) {
+    log({ level: 'info', message: `removing jobs: ${toRemoveArr.join(', ')}` })
+  }
   toRemoveJobNames.forEach(jobName => {
     const job = jobs[jobName]
     clearTimeout(job.state.nextRunTimer!)

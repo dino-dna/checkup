@@ -5,6 +5,7 @@ import {
   edit,
   getConfigDir,
   getConfigFilename,
+  openLogFile,
   upsertConfigDir
 } from './configure'
 import { AppState, Logger } from './interfaces'
@@ -46,6 +47,8 @@ app.on('ready', async () => {
     switch (msg) {
       case FromUi.REQUEST_OPEN_CONFIG_FOLDER:
         return edit(electron)
+      case FromUi.REQUEST_OPEN_LOG_FILE:
+        return openLogFile(electron)
       case FromUi.LOG:
         return processLog(payload)
       case FromUi.REQUEST_OPEN_ISSUE_URL:

@@ -25,6 +25,12 @@ const onIssue = () => {
     .ipcRenderer.send('bus', FromUi.REQUEST_OPEN_ISSUE_URL)
 }
 
+const onOpenLog = () => {
+  window
+    .require('electron')
+    .ipcRenderer.send('bus', FromUi.REQUEST_OPEN_LOG_FILE)
+}
+
 const refreshMainState: () => any = () => {
   const conf: typeof configure = remote.require('./configure')
   const nextState = conf.getState()
@@ -51,7 +57,12 @@ const state: CheckupProps['state'] = {
 
 const render = () =>
   ReactDOM.render(
-    <Checkup onConfigure={onConfigure} onIssue={onIssue} state={state} />,
+    <Checkup
+      onConfigure={onConfigure}
+      onIssue={onIssue}
+      onOpenLog={onOpenLog}
+      state={state}
+    />,
     document.getElementById('app')
   )
 

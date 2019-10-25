@@ -20,3 +20,9 @@ export const IssueIconButton: React.FC<IconButtonProps> = props => (
     <i className='icono-exclamationCircle' />
   </IconButton>
 )
+
+export const FileIconButton: React.FC<IconButtonProps> = props => (
+  <IconButton {...props}>
+    <i className='icono-file' />
+  </IconButton>
+)

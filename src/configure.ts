@@ -1,7 +1,9 @@
-import { copyFile, mkdirp, lstat } from 'fs-extra'
-import { resolve } from 'path'
+import { copyFile, mkdirp, lstat, readdir } from 'fs-extra'
+import path, { resolve } from 'path'
 import Electron from 'electron'
 import { debounce } from 'lodash'
+import { promisify } from 'util'
+
 import { rectify } from './jobs'
 import { AppState, Logger } from './interfaces'
 
@@ -25,6 +27,20 @@ export const upsertConfigDir = async () => {
 
 export const edit = (electron: typeof Electron) =>
   electron.shell.showItemInFolder(getConfigFilename())
+
+export const openLogFile = async (electron: typeof Electron) => {
+  const files = await promisify<string, string[]>(readdir)(getConfigDir())
+  const lastLogFile = files
+    .sort()
+    .reverse()
+    .find(f => /^checkup.*log$/.test(f))
+
+  if (!lastLogFile) {
+    throw new Error('Could not find log files')
+  }
+
+  electron.shell.showItemInFolder(path.join(getConfigDir(), lastLogFile))
+}
 
 let dangerousAppStateRef: null | AppState = null
 export const getState = () => dangerousAppStateRef

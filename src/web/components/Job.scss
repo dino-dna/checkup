@@ -1,0 +1,36 @@
+@import '../_variables';
+
+.Job {
+  display: flex;
+  padding: .75rem;
+}
+
+/// Icons
+.Job-icon {
+  color: $gray;
+  margin-right: .75rem;
+}
+.Job-icon-ok {
+  color: $green;
+}
+.Job-icon-error {
+  color: $red;
+}
+
+/// Content
+.Job-content {
+  padding-top: .4rem;
+  flex: 2;
+}
+
+.Job-name {
+  margin-bottom: .25rem;
+}
+.Job-next-run {
+  color: $gray;
+}
+.Job-message {
+  color: $red;
+  display: block;
+  margin-top: .25rem;
+}

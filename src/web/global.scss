@@ -1,5 +1,11 @@
 @import '_variables';
 
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 html {
   background: $white;
   color: $black;

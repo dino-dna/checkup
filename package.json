@@ -1,6 +1,6 @@
 {
   "name": "checkup",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "author": "cdaringe <cdaringe@gmail.com>",
@@ -21,7 +21,9 @@
     "node-eval": "^2.0.0",
     "node-fetch": "^2.6.0",
     "preact": "^10.0.0",
-    "preact-compat": "^3.19.0"
+    "preact-compat": "^3.19.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

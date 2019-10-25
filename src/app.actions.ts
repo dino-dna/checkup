@@ -1,4 +1,4 @@
-import { AppState, Status } from './interfaces'
+import { AppState, Status, Logger } from './interfaces'
 import { FromServer } from './messages'
 import { getStatusIcon } from './menubar'
 import { Menubar } from 'menubar'
@@ -6,10 +6,12 @@ import Electron from 'electron'
 
 export const create = ({
   electron,
+  log,
   menubar: mb,
   appState
 }: {
   electron: typeof Electron
+  log: Logger
   menubar: Menubar
   appState: AppState
 }) => {
@@ -34,7 +36,10 @@ export const create = ({
       mb.tray.setImage(getStatusIcon(electron.nativeImage, trayStatus))
       const window = getWindow()
       if (!window) {
-        console.warn('[no window found]')
+        log({
+          level: 'warning',
+          message: 'window not found. skipping sending state update'
+        })
         return
       }
       return window.webContents.send('bus', FromServer.STATE_UPDATED)

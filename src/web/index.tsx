@@ -6,17 +6,21 @@ import * as configure from '../configure'
 import { FromServer, FromUi } from '../messages'
 import { delay } from 'bluebird'
 import { Checkup, CheckupProps } from './components/Checkup'
+import { LogMsg, Logger } from '../interfaces'
 
-const onConfigure = () => {
-  window
-    .require('electron')
-    .ipcRenderer.send('bus', FromUi.REQUEST_OPEN_CONFIG_FOLDER)
-}
+const { ipcRenderer, remote } = window.require('electron')
+
+const log: Logger = log =>
+  ipcRenderer.send('bus', FromUi.LOG, {
+    processName: 'renderer',
+    ...log
+  } as LogMsg)
+
+const onConfigure = () =>
+  ipcRenderer.send('bus', FromUi.REQUEST_OPEN_CONFIG_FOLDER)
 
 const refreshMainState: () => any = () => {
-  const conf: typeof configure = window
-    .require('electron')
-    .remote.require('./configure')
+  const conf: typeof configure = remote.require('./configure')
   const nextState = conf.getState()
   if (!nextState) {
     return delay(100).then(refreshMainState)
@@ -25,7 +29,8 @@ const refreshMainState: () => any = () => {
   render()
 }
 
-window.require('electron').ipcRenderer.on('bus', (evt, msg) => {
+ipcRenderer.on('bus', (_, msg) => {
+  log({ level: 'verbose', message: `received ${msg}` })
   switch (msg) {
     case FromServer.STATE_UPDATED:
       return refreshMainState()

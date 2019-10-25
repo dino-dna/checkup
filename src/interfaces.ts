@@ -5,6 +5,15 @@ import execa from 'execa'
 
 export type Status = 'ok' | 'pending' | 'not_ok'
 
+export type ProcessName = 'main' | 'renderer'
+export type Level = 'info' | 'warning' | 'error' | 'verbose'
+export type LogMsg = {
+  level: Level
+  tags?: string[]
+  message: string
+}
+export type ProcessLogger = (log: LogMsg & { processName: ProcessName }) => void
+export type Logger = (log: LogMsg) => void
 export type TestResult = {
   name: string
   status: Status

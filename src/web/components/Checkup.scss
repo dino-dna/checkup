@@ -19,5 +19,8 @@
 }
 .checkup-controls {
   border-top: 2px solid $black;
-  text-align: right;
+  display: flex;
+}
+.checkup-controls-spacer {
+  flex-grow: 2;
 }

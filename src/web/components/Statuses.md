@@ -26,6 +26,7 @@ Some jobs:
   }, {
     name: 'Watchu doin',
     state: {
+      lastSuccess: 'this succeeded a while ago',
       status: 'who knows dawg',
       nextRunDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
     }

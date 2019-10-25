@@ -57,7 +57,7 @@ export const Code: React.FC<TextProps & { block?: boolean }> = ({
   ...rest
 }) =>
   block ? (
-    <pre className={clsx('Text-code', className)} {...rest}>
+    <pre className={clsx('Text-code-block', className)} {...rest}>
       <code>{children}</code>
     </pre>
   ) : (

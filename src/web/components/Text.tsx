@@ -49,3 +49,19 @@ export const Body: React.FC<TextProps> = ({
 export const Caption: React.FC<TextProps> = ({ className, ...rest }) => (
   <Text className={clsx('Text-caption', className)} {...rest} />
 )
+
+export const Code: React.FC<TextProps & { block?: boolean }> = ({
+  block,
+  children,
+  className,
+  ...rest
+}) =>
+  block ? (
+    <pre className={clsx('Text-code', className)} {...rest}>
+      <code>{children}</code>
+    </pre>
+  ) : (
+    <code className={clsx('Text-code', className)} {...rest}>
+      {children}
+    </code>
+  )

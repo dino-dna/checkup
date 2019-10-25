@@ -34,3 +34,18 @@ import { Caption, Text } from './Text'
 ;
 <Caption>Lorem ipsum <Text bold>dolor sit</Text> amet</Caption>
 ```
+
+Use the `Code` export for pre-formatted code or machine output:
+
+```jsx
+import { Body, Code } from './Text'
+;
+<Body>Be careful with <Code>this</Code> and scope in JavaScript!</Body>
+```
+
+Use the `block` property for a styled `pre`:
+```jsx
+import { Code } from './Text'
+;
+<Code block>Something has happened</Code>
+```

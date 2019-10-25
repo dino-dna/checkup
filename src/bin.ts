@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron'
+import { app, ipcMain, shell } from 'electron'
 import { create as createMenubar } from './menubar'
 import {
   debouncedReload,
@@ -11,6 +11,7 @@ import { AppState, Logger } from './interfaces'
 import { create } from './app.actions'
 import { FromUi } from './messages'
 import { createLogger } from './logger'
+import pkg from '../package.json'
 
 const processLog = createLogger({
   dirname: getConfigDir()
@@ -47,6 +48,8 @@ app.on('ready', async () => {
         return edit(electron)
       case FromUi.LOG:
         return processLog(payload)
+      case FromUi.REQUEST_OPEN_ISSUE_URL:
+        return shell.openExternal(pkg.bugs)
       default:
         throw new Error(`unsupported message from ui: ${msg}`)
     }

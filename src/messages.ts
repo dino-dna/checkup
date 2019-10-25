@@ -4,5 +4,6 @@ export enum FromServer {
 
 export enum FromUi {
   REQUEST_OPEN_CONFIG_FOLDER = 'REQUEST_OPEN_CONFIG_FOLDER',
-  LOG = 'LOG'
+  LOG = 'LOG',
+  REQUEST_OPEN_ISSUE_URL = 'REQUEST_OPEN_ISSUE_URL'
 }

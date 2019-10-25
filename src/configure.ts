@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import Electron from 'electron'
 import { debounce } from 'lodash'
 import { rectify } from './jobs'
-import { AppState } from './interfaces'
+import { AppState, Logger } from './interfaces'
 
 const applicationConfigPath = require('application-config-path')
 
@@ -20,6 +20,7 @@ export const upsertConfigDir = async () => {
       await copyFile(templateFilename, getConfigFilename())
     }
   })
+  return configDirname
 }
 
 export const edit = (electron: typeof Electron) =>
@@ -30,10 +31,12 @@ export const getState = () => dangerousAppStateRef
 
 export const reload = ({
   appState,
-  configFilename
+  configFilename,
+  log
 }: {
   appState: AppState
   configFilename: string
+  log: Logger
 }) => {
   dangerousAppStateRef = appState // look away. this is for easy/hacky renderer/main io
   // const res = compile([configFilename], {
@@ -45,7 +48,7 @@ export const reload = ({
   //   module: ts.ModuleKind.CommonJS,
   // })
   // if (res.length) throw new Error(res.join('\n'))
-  return rectify({ ...appState, configFilename })
+  return rectify({ ...appState, configFilename, log })
 }
 
 export const debouncedReload = debounce(reload, 1000, {

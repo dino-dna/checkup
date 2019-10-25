@@ -1,4 +1,4 @@
-import { ConfigureFn, AppState, Job, JobsByName } from './interfaces'
+import { ConfigureFn, AppState, Job, JobsByName, Logger } from './interfaces'
 import { getFirstExistingFilename } from './files'
 import { isDev } from './env'
 import * as fs from 'fs-extra'
@@ -9,8 +9,9 @@ const nodeEval = require('node-eval')
 const onStartPoll: (opts: {
   jobs: JobsByName
   name: string
+  log: Logger
   actions: AppState['actions']
-}) => Promise<void> = async ({ actions, jobs, name }) => {
+}) => Promise<void> = async ({ actions, jobs, name, log }) => {
   const now = new Date()
   const job = jobs[name]
   const nextPoll = job.pollDurationMs || (isDev ? 10000 : 60000 * 10)
@@ -22,6 +23,13 @@ const onStartPoll: (opts: {
       job.state.lastSuccess = now
       job.state.message = ''
       job.state.status = 'ok'
+      const duration = ((new Date().getTime() - now.getTime()) / 1000).toFixed(
+        1
+      )
+      log({
+        level: 'info',
+        message: `job ${job.name} succeded in ${duration}s`
+      })
     })
     .catch(err => {
       job.state.lastFailure = now
@@ -32,20 +40,28 @@ const onStartPoll: (opts: {
       job.state!.lastRunDate = now
       job.state.nextRunDate = new Date(now.getTime() + nextPoll)
       actions.onStateUpdated()
-      return setTimeout(() => onStartPoll({ actions, jobs, name }), nextPoll)
+      return setTimeout(
+        () => onStartPoll({ actions, jobs, name, log }),
+        nextPoll
+      )
     })
 }
 export async function rectify ({
   actions,
   configFilename,
+  log,
   jobs
-}: AppState & { configFilename: string }) {
+}: AppState & { configFilename: string; log: Logger }) {
   const jsConfigTemplateFilename = configFilename.replace(/\.ts$/, '.js')
   const jsConfigFilename = configFilename.replace('.template.js', '.js')
   const finalJsConfigFilename = await getFirstExistingFilename(
     jsConfigFilename,
     jsConfigTemplateFilename
   )
+  log({
+    level: 'verbose',
+    message: `using config file: ${finalJsConfigFilename}`
+  })
   const createNextJobs = await fs
     .readFile(finalJsConfigFilename)
     .then(buf => Promise.resolve(nodeEval(buf.toString())))
@@ -62,14 +78,20 @@ export async function rectify ({
     jobs[job.name] = job
     if (!oldJob) {
       // init new state
+      log({ level: 'info', message: `job "${job.name}" created` })
       job.state = { status: 'pending' }
       await onStartPoll({
         name: job.name,
         jobs,
-        actions
+        actions,
+        log
       })
     } else {
       // recycle old state
+      log({
+        level: 'info',
+        message: `updating job "${job.name}", reusing current state`
+      })
       jobs[job.name] = job
       job.state = oldJob.state
     }
@@ -77,6 +99,8 @@ export async function rectify ({
   // purge removed jobs
   const toRemoveJobNames = new Set(currJobNames)
   nextJobNames.forEach(name => toRemoveJobNames.delete(name))
+  const toRemoveArr = Array.from(nextJobNames)
+  if (toRemoveArr.length) { log({ level: 'info', message: `removing jobs: ${toRemoveArr.join(', ')}` }) }
   toRemoveJobNames.forEach(jobName => {
     const job = jobs[jobName]
     clearTimeout(job.state.nextRunTimer!)

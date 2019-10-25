@@ -3,6 +3,7 @@ import { Statuses } from './Statuses'
 import { AppState } from '../../interfaces'
 import { ConfigButton } from './ConfigButton'
 import { ErrorMessage } from './ErrorMessage'
+import { Body } from './Text'
 import './Checkup.scss'
 
 export interface CheckupProps {
@@ -19,10 +20,10 @@ export const Checkup: React.FC<CheckupProps> = ({ onConfigure, state }) => (
       <Statuses jobs={state.main ? Object.values(state.main.jobs) : []} />
     ) : (
       <ErrorMessage title='Bad config'>
-        <p>
+        <Body>
           Bad configuration file detected:{' '}
           {state.main!.errorMessage || 'unknown error'}
-        </p>
+        </Body>
       </ErrorMessage>
     )}
     <div style={{ flexGrow: 1 }} />

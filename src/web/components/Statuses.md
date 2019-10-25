@@ -19,6 +19,7 @@ Some jobs:
   }, {
     name: 'Big flops',
     state: {
+      message: 'There was an error',
       nextRunDate: new Date(Date.now() + 60),
       status: 'not_ok',
     }

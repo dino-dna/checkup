@@ -14,7 +14,8 @@ const onStartPoll: (opts: {
 }) => Promise<void> = async ({ actions, jobs, name, log }) => {
   const now = new Date()
   const job = jobs[name]
-  const nextPoll = job.pollDurationMs || (isDev ? 10000 : 60000 * 10)
+  const nextPoll =
+    (job as any).pollDurationMsDev || job.pollDurationMs || 60000 * 10
   job.state.status = 'pending'
   const jobLogger: Logger = msg =>
     log({

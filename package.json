@@ -64,6 +64,7 @@
     "build": "run-s compile bundle",
     "bundle:watch": "parcel watch --out-dir dist_web --no-hmr --public-url ./ src/web/index.html",
     "bundle": "parcel build --out-dir dist_web --public-url ./ src/web/index.html",
+    "clean": "./scripts/clean.sh",
     "compile": "tsc",
     "compile:watch": "tsc -w",
     "dist": "cross-env DEBUG=electron-builder electron-builder",

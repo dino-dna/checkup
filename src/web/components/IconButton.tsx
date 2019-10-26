@@ -1,27 +1,27 @@
-import React from 'react'
+import { FunctionComponent, JSX, h } from 'preact'
 import clsx from 'clsx'
 import './IconButton.scss'
 
-export type IconButtonProps = React.HTMLAttributes<HTMLButtonElement>
+export type IconButtonProps = JSX.HTMLAttributes
 
-export const IconButton: React.FC<IconButtonProps> = ({
+export const IconButton: FunctionComponent<IconButtonProps> = ({
   className,
   ...rest
 }) => <button className={clsx('IconButton', className)} {...rest} />
 
-export const GearIconButton: React.FC<IconButtonProps> = props => (
+export const GearIconButton: FunctionComponent<IconButtonProps> = props => (
   <IconButton {...props}>
     <i className='icono-gear' />
   </IconButton>
 )
 
-export const IssueIconButton: React.FC<IconButtonProps> = props => (
+export const IssueIconButton: FunctionComponent<IconButtonProps> = props => (
   <IconButton {...props}>
     <i className='icono-exclamationCircle' />
   </IconButton>
 )
 
-export const FileIconButton: React.FC<IconButtonProps> = props => (
+export const FileIconButton: FunctionComponent<IconButtonProps> = props => (
   <IconButton {...props}>
     <i className='icono-file' />
   </IconButton>

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FunctionComponent, JSX, h } from 'preact'
 import { Statuses } from './Statuses'
 import { AppState } from '../../interfaces'
 import { ErrorMessage } from './ErrorMessage'
@@ -7,15 +7,15 @@ import { Body } from './Text'
 import './Checkup.scss'
 
 export interface CheckupProps {
-  onConfigure: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
-  onIssue: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
-  onOpenLog: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
+  onConfigure: JSX.MouseEventHandler
+  onIssue: JSX.MouseEventHandler
+  onOpenLog: JSX.MouseEventHandler
   state: {
     main: AppState | null
   }
 }
 
-export const Checkup: React.FC<CheckupProps> = ({
+export const Checkup: FunctionComponent<CheckupProps> = ({
   onConfigure,
   onIssue,
   onOpenLog,

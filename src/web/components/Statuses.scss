@@ -6,7 +6,7 @@ ol.Statuses {
   padding: 0;
 
   li + li {
-    border-top: 2px solid $black;
+    border-top: 1px solid $gray;
   }
 }
 
@@ -14,4 +14,3 @@ ol.Statuses {
   color: $gray;
   padding: 1rem;
 }
-

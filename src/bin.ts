@@ -61,7 +61,10 @@ app.on('ready', async () => {
 
 const reloadConfig = (appState: AppState) =>
   debouncedReload({ appState, configFilename: getConfigFilename(), log })
-    .then(() => (appState.errorMessage = ''))
+    .then(() => {
+      appState.state = 'OK'
+      appState.errorMessage = ''
+    })
     .catch((err: Error) => {
       log({ level: 'error', message: err.message })
       appState.state = 'BAD_CONFIG_FILE'

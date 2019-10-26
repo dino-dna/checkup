@@ -21,6 +21,6 @@ test('can reload valid configuration file', async t => {
     configFilename,
     log: () => {}
   })
-  t.is(Object.values(appState.jobs).length, 3, 'jobs instantiated')
+  t.truthy(Object.values(appState.jobs).length, 'jobs instantiated')
   t.truthy(appState.jobs['my-api-status'].state.status, 'job has a status')
 })

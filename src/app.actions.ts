@@ -37,7 +37,7 @@ export const create = ({
       const window = getWindow()
       if (!window) {
         log({
-          level: 'warning',
+          level: 'warn',
           message: 'window not found. skipping sending state update'
         })
         return

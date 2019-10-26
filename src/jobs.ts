@@ -16,7 +16,12 @@ const onStartPoll: (opts: {
   const job = jobs[name]
   const nextPoll = job.pollDurationMs || (isDev ? 10000 : 60000 * 10)
   job.state.status = 'pending'
-  Promise.resolve(job.fn())
+  const jobLogger: Logger = msg =>
+    log({
+      ...msg,
+      tags: msg.tags ? [...msg.tags, job.name] : [job.name]
+    })
+  Promise.resolve(job.fn({ log: jobLogger }))
     .then(res => {
       if (typeof res === 'string') job.state!.message = res
       job.state.lastRunDate = now
@@ -45,7 +50,7 @@ const onStartPoll: (opts: {
       job.state!.lastRunDate = now
       job.state.nextRunDate = new Date(now.getTime() + nextPoll)
       actions.onStateUpdated()
-      return setTimeout(
+      job.state.nextRunTimer = setTimeout(
         () => onStartPoll({ actions, jobs, name, log }),
         nextPoll
       )
@@ -74,8 +79,11 @@ export async function rectify ({
     throw new Error('config file must export function named configure')
   }
   const configure: ConfigureFn = createNextJobs.configure
-  const getJobsRes = configure({ execa, fetch, fs })
+  const getJobsRes = configure({ execa, fetch, fs, log })
   const nextJobs = (await Promise.resolve(getJobsRes)) as Job[]
+  // NO ASYNC CODE PERMITTED AFTER THIS POINT
+  // until the jobs meta object has been updated in the same, uninterrupted
+  // event loop cycle
   const nextJobNames = new Set(nextJobs.map(job => job.name))
   const currJobNames = new Set(Object.values(jobs).map(job => job.name))
   for (const job of Object.values(nextJobs)) {
@@ -85,7 +93,7 @@ export async function rectify ({
       // init new state
       log({ level: 'info', message: `job "${job.name}" created` })
       job.state = { status: 'pending' }
-      await onStartPoll({
+      onStartPoll({
         name: job.name,
         jobs,
         actions,
@@ -103,8 +111,14 @@ export async function rectify ({
   }
   // purge removed jobs
   const toRemoveJobNames = new Set(currJobNames)
-  nextJobNames.forEach(name => toRemoveJobNames.delete(name))
-  const toRemoveArr = Array.from(nextJobNames)
+  nextJobNames.forEach(name => {
+    log({
+      level: 'info',
+      message: `nextJobNames has job named "${name}". preventing its removal`
+    })
+    toRemoveJobNames.delete(name)
+  })
+  const toRemoveArr = Array.from(toRemoveJobNames)
   if (toRemoveArr.length) {
     log({ level: 'info', message: `removing jobs: ${toRemoveArr.join(', ')}` })
   }

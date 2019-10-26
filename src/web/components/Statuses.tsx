@@ -1,17 +1,8 @@
 import React from 'react'
-import clsx from 'clsx'
 import { Job as JobInterface } from '../../interfaces'
-import { Body, Caption } from './Text'
+import { Body } from './Text'
 import { Job } from './Job'
 import './Statuses.scss'
-import moment from 'moment'
-
-const toMessageDom = (msg: string) => (
-  <>
-    <br />
-    <Caption className='job-error-msg' children={`Error: ${msg}`} />
-  </>
-)
 
 /*
 const getNextRunEstimate = (job: Job) => {

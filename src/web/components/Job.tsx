@@ -9,10 +9,15 @@ export interface JobProps extends React.HTMLAttributes<HTMLDivElement> {
   job: JobInterface
 }
 
-const getNextRunEstimate = (nextRunDate?: Date) => {
+const getNextRunEstimate = (nextRunDate?: string) => {
   if (!nextRunDate) return '?'
   const now = new Date().getTime()
-  const duration = moment.duration(nextRunDate.getTime() - now, 'ms')
+  const duration = moment.duration(
+    moment(nextRunDate)
+      .toDate()
+      .getTime() - now,
+    'ms'
+  )
   return `next in: ${duration.humanize()}`
 }
 
@@ -44,7 +49,7 @@ export const Job: React.FC<JobProps> = ({
       <div className='Job-content-top'>
         <Body className='Job-name'>{name}</Body>
         <Caption className='Job-next-run'>
-          {getNextRunEstimate(nextRunDate)}
+          {getNextRunEstimate(nextRunDate as any)}
         </Caption>
       </div>
       {!!message && (

@@ -18,7 +18,7 @@ export const createLogger = ({ dirname, level }: LoggerOptions) => {
     maxFiles: '5d'
   })
   const winstonLogger = winston.createLogger({
-    level: level || 'info',
+    level: level || (isDev ? 'verbose' : 'info'),
     format: format.combine(
       format.timestamp({
         format: 'YYYY-MM-DD HH:mm:ss'

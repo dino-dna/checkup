@@ -12,7 +12,7 @@ import { AppState, Logger } from './interfaces'
 import { create } from './app.actions'
 import { FromUi } from './messages'
 import { createLogger } from './logger'
-import pkg from '../package.json'
+const pkg = require('../package.json')
 
 const processLog = createLogger({
   dirname: getConfigDir()

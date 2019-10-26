@@ -3,6 +3,7 @@ import path, { resolve } from 'path'
 import Electron from 'electron'
 import { debounce } from 'lodash'
 import { promisify } from 'util'
+import primitivify from 'primitivify'
 
 import { rectify } from './jobs'
 import { AppState, Logger } from './interfaces'
@@ -44,6 +45,10 @@ export const openLogFile = async (electron: typeof Electron) => {
 
 let dangerousAppStateRef: null | AppState = null
 export const getState = () => dangerousAppStateRef
+export const getJsonState = () =>
+  JSON.stringify(
+    primitivify(getState(), v => (v instanceof Date ? v.toISOString() : v))
+  )
 
 export const reload = ({
   appState,

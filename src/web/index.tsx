@@ -1,12 +1,12 @@
+import './global.scss'
+import './icons.min.css'
+import { Checkup, CheckupProps } from './components/Checkup'
+import { delay } from 'bluebird'
+import { FromServer, FromUi } from '../messages'
+import { LogMsg, Logger, AppState } from '../interfaces'
+import * as configure from '../configure'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './icons.min.css'
-import './global.scss'
-import * as configure from '../configure'
-import { FromServer, FromUi } from '../messages'
-import { delay } from 'bluebird'
-import { Checkup, CheckupProps } from './components/Checkup'
-import { LogMsg, Logger } from '../interfaces'
 
 const { ipcRenderer, remote } = window.require('electron')
 
@@ -33,11 +33,18 @@ const onOpenLog = () => {
 
 const refreshMainState: () => any = () => {
   const conf: typeof configure = remote.require('./configure')
-  const nextState = conf.getState()
+  const nextState: AppState | null = JSON.parse(conf.getJsonState())
   if (!nextState) {
     return delay(100).then(refreshMainState)
   }
   state.main = nextState
+  if (state.main) {
+    for (const job of Object.values(state.main.jobs)) {
+      if (!job || !job.name) {
+        return log({ level: 'error', message: 'unable to extract job' })
+      }
+    }
+  }
   render()
 }
 

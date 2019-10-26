@@ -6894,7 +6894,7 @@ lodash@4.17.14:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
-lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.2.1:
+lodash@>=4, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.2.1:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -9014,6 +9014,14 @@ pretty-ms@^5.0.0:
   integrity sha512-94VRYjL9k33RzfKiGokPBPpsmloBYSf5Ri+Pq19zlsEcUKFob+admeXr5eFDRuPjFmEOcjJvPGdillYOJyvZ7Q==
   dependencies:
     parse-ms "^2.1.0"
+
+primitivify@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/primitivify/-/primitivify-1.1.0.tgz#e9afbd39bf8c4e3064dcb6543f6c5f323a8c3f84"
+  integrity sha512-ACWhGK9JfVKzow/Iy2PyHYfOKT/6oAeyCbEdAHaREN/df7R2o5CLEfUeL9yXOlbaimiB1yj/wp1Ic3l+MedlhQ==
+  dependencies:
+    is-plain-object "^3.0.0"
+    lodash ">=4"
 
 prismjs@^1.16.0:
   version "1.17.1"

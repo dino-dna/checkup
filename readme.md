@@ -38,6 +38,9 @@ module.exports.configure = (ctx) =>
   - observe your new checks loaded!
 - enjoy
 
+### launch on startup
+
+if you would like `checkup` to start when your mac starts up, go to `System Preferences > Users and Groups` and add `checkup.app` to "Login Items" for your user
 
 ### api
 

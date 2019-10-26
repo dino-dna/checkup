@@ -26,20 +26,20 @@ jobs:
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
       run: yarn release # electron-builder --publish always
 
-  # build_on_win:
-  #   runs-on: windows-2016
-  #   steps:
-  #   - uses: actions/checkout@master
-  #   - uses: actions/setup-node@master
-  #     with:
-  #       node-version: 12.8.0
-  #   - name: install
-  #     run: yarn
-  #   - name: build
-  #     run: yarn build
-  #   - name: test
-  #     run: yarn test
-  #   - name: release
-  #     env:
-  #       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  #     run: yarn release
+  build_on_win:
+    runs-on: windows-2016
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12.8.0
+    - name: install
+      run: yarn
+    - name: build
+      run: yarn build
+    - name: test
+      run: yarn test
+    - name: release
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: yarn release

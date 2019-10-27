@@ -1,9 +1,15 @@
-@import '../variables';
-
 .checkup {
+  background: var(--white);
+  color: var(--black);
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+// Dark theme
+.checkup-dark {
+  background: var(--black);
+  color: var(--white);
 }
 
 // Styleguide-only `height`
@@ -18,7 +24,7 @@
   overflow: scroll;
 }
 .checkup-controls {
-  border-top: 2px solid $black;
+  border-top: 2px solid var(--black);
   display: flex;
 }
 .checkup-controls-spacer {

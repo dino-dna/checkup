@@ -1,5 +1,6 @@
 node_modules
 src/**/*.js
+styleguide/**/*.js
 scripts/**/*.js
 test/**/*.js
 *.map

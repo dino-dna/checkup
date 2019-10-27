@@ -4,6 +4,7 @@ const pkg = require('./package.json')
 module.exports = {
   components: './src/web/components/**/*.{ts,tsx}',
   require: [
+    path.join(__dirname, 'styleguide/globals.ts'),
     path.join(__dirname, 'src/web/global.scss'),
     path.join(__dirname, 'src/web/icons.min.css')
   ],
@@ -26,7 +27,10 @@ module.exports = {
       }]
     },
     resolve: {
-      alias: pkg.alias
+      alias: {
+        react: 'preact/compat',
+        'react-dom': 'preact/compat'
+      }
     }
   },
   version: pkg.version,

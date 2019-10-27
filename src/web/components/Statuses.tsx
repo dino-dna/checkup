@@ -1,17 +1,9 @@
-import React from 'react'
+import { Fragment, h } from 'preact'
+import clsx from 'clsx'
 import { Job as JobInterface } from '../../interfaces'
 import { Body } from './Text'
 import { Job } from './Job'
 import './Statuses.scss'
-
-/*
-const getNextRunEstimate = (job: Job) => {
-  if (!job.state.nextRunDate) return '?'
-  const now = new Date().getTime()
-  const duration = moment.duration(job.state.nextRunDate.getTime() - now, 'ms')
-  return `next in: ${duration.humanize()}`
-}
-*/
 
 export const Statuses = ({ jobs }: { jobs: JobInterface[] }) => {
   return !jobs.length ? (

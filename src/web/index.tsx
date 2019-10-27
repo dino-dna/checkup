@@ -1,5 +1,6 @@
-import './global.scss'
+import { h, render as renderToDOM } from 'preact'
 import './icons.min.css'
+import './global.scss'
 import { Checkup, CheckupProps } from './components/Checkup'
 import { delay } from 'bluebird'
 import { FromServer, FromUi } from '../messages'
@@ -62,15 +63,20 @@ const state: CheckupProps['state'] = {
   main: null
 }
 
-const render = () =>
-  ReactDOM.render(
-    <Checkup
-      onConfigure={onConfigure}
-      onIssue={onIssue}
-      onOpenLog={onOpenLog}
-      state={state}
-    />,
-    document.getElementById('app')
-  )
+const render = () => {
+  const el = document.getElementById('app')
+
+  if (el) {
+    renderToDOM(
+      <Checkup
+        onConfigure={onConfigure}
+        onIssue={onIssue}
+        onOpenLog={onOpenLog}
+        state={state}
+      />,
+      el
+    )
+  }
+}
 
 refreshMainState()

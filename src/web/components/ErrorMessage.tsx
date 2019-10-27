@@ -1,8 +1,8 @@
-import React from 'react'
+import { FunctionComponent, JSX, h } from 'preact'
 import { Heading } from './Text'
 import './ErrorMessage.scss'
 
-export const ErrorMessage: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+export const ErrorMessage: FunctionComponent<JSX.HTMLAttributes> = ({
   children,
   title,
   ...rest

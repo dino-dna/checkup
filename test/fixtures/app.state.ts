@@ -5,7 +5,7 @@ export const createAppState: () => AppState = () => {
   const appState: AppState = {
     actions: {} as any,
     jobs: {},
-    theme: 'stencil_dark',
+    iconTheme: 'stencil_dark',
     state: 'OK'
   }
   appState.actions = create({

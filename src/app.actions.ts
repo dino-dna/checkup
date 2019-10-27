@@ -34,7 +34,7 @@ export const create = ({
                 ? 'pending'
                 : 'ok'
       mb.tray.setImage(
-        getStatusIcon(electron.nativeImage, appState.theme, trayStatus)
+        getStatusIcon(electron.nativeImage, appState.iconTheme, trayStatus)
       )
       const window = getWindow()
       if (!window) {

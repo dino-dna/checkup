@@ -1,11 +1,10 @@
 import {
   ConfigureFn,
   AppState,
-  Job,
   JobsByName,
   Logger,
   UserConfig,
-  Theme
+  IconTheme
 } from './interfaces'
 import { getFirstExistingFilename } from './files'
 import { isDev } from './env'
@@ -100,10 +99,12 @@ export async function rectify ({
     ? { jobs: rawUserConfig }
     : rawUserConfig
   const { jobs: nextJobs, theme } = userConfig
-  const themes: Theme[] = ['github', 'stencil', 'stencil_dark']
+  const themes: IconTheme[] = ['github', 'stencil', 'stencil_dark']
   if (theme) {
-    if (!themes.includes(theme)) { throw new Error(`invalid theme. please select from: ${themes.join(', ')}`) }
-    appState.theme = theme
+    if (!themes.includes(theme)) {
+      throw new Error(`invalid theme. please select from: ${themes.join(', ')}`)
+    }
+    appState.iconTheme = theme
   }
   // NO ASYNC CODE PERMITTED AFTER THIS POINT
   // until the jobs meta object has been updated in the same, uninterrupted

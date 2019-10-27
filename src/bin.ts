@@ -1,4 +1,4 @@
-import { app, ipcMain, shell } from 'electron'
+import { app, ipcMain, shell, systemPreferences } from 'electron'
 import { create as createMenubar } from './menubar'
 import {
   debouncedReload,
@@ -29,7 +29,7 @@ app.on('ready', async () => {
   const appState: AppState = {
     actions: {} as any, // hacks
     state: 'OK',
-    theme: 'stencil_dark',
+    iconTheme: systemPreferences.isDarkMode() ? 'stencil_dark' : 'stencil',
     jobs: {}
   }
   const mb = createMenubar({ appState, electron })

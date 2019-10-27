@@ -3,7 +3,7 @@ import execa from 'execa'
 import Fetch from 'node-fetch'
 import fs from 'fs-extra'
 
-export type Theme = 'github' | 'stencil' | 'stencil_dark'
+export type IconTheme = 'github' | 'stencil' | 'stencil_dark'
 export type Status = 'ok' | 'pending' | 'not_ok'
 
 export type ProcessName = 'main' | 'renderer'
@@ -46,7 +46,7 @@ export type Job = {
     nextRunTimer?: NodeJS.Timeout
   }
 }
-export type UserConfig = { theme?: Theme; jobs: Job[] }
+export type UserConfig = { theme?: IconTheme; jobs: Job[] }
 export type ConfigureFn = (toolkit: Toolkit) => UserConfig | Job[]
 export type JobsByName = {
   [jobName: string]: Job
@@ -62,6 +62,6 @@ export type AppState = {
   actions: AppActions
   state: AppStates
   jobs: JobsByName
-  theme: Theme
+  iconTheme: IconTheme
   errorMessage?: string
 }

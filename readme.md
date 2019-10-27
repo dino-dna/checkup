@@ -49,8 +49,8 @@ if you would like `checkup` to start when your mac starts up, go to `System Pref
 - export a `configure` function with signature:
 
   - `module.exports.configure = (toolkit) => [ ...jobs ]`, or
-  - `module.exports.configure = (toolkit) => { theme: ..., jobs: [ ...jobs ] }`
-    - `theme`: `'stencil_dark'`, `'stencil'`, `'github'`
+  - `module.exports.configure = (toolkit) => { iconTheme: ..., jobs: [ ...jobs ] }`
+    - `iconTheme`: `'stencil_dark'`, `'stencil'`, `'github'`
     - `jobs`: each `Job has the following type signature:
 
 ```ts

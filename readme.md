@@ -46,17 +46,22 @@ if you would like `checkup` to start when your mac starts up, go to `System Pref
 
 #### config.js
 
-- export a configure function, `module.exports.configure = (toolkit) => [ ...checks ]`
-- each check (internally called a `Job`), has the following type signature:
+- export a `configure` function with signature:
+
+  - `module.exports.configure = (toolkit) => [ ...jobs ]`, or
+  - `module.exports.configure = (toolkit) => { theme: ..., jobs: [ ...jobs ] }`
+    - `theme`: `'stencil_dark'`, `'stencil'`, `'github'`
+    - `jobs`: each `Job has the following type signature:
 
 ```ts
 type Job = {
   name: string
-  fn: () => JobResponsePrimative | Promise<JobResponsePrimative>
-  pollDurationMs?: number
+  fn: (jobCtx: JobCtx) => JobResponsePrimative | Promise<JobResponsePrimative>
+  pollDurationMs?: number // default: 10 minutes (60000 * 10)
   state: { ... } // @private. do not try to set or use `state`
 }
 type JobResponsePrimative = boolean | string
+type JobCtx = { log: Logger } // log({ level: 'warn|info|error', message: 'my job is the best!' })
 ```
 
 see above for examples.

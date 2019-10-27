@@ -1,4 +1,12 @@
-import { ConfigureFn, AppState, Job, JobsByName, Logger } from './interfaces'
+import {
+  ConfigureFn,
+  AppState,
+  Job,
+  JobsByName,
+  Logger,
+  UserConfig,
+  Theme
+} from './interfaces'
 import { getFirstExistingFilename } from './files'
 import { isDev } from './env'
 import * as fs from 'fs-extra'
@@ -58,11 +66,15 @@ const onStartPoll: (opts: {
     })
 }
 export async function rectify ({
-  actions,
-  configFilename,
+  appState,
   log,
-  jobs
-}: AppState & { configFilename: string; log: Logger }) {
+  configFilename
+}: {
+  appState: AppState
+  configFilename: string
+  log: Logger
+}) {
+  const { actions, jobs } = appState
   const jsConfigTemplateFilename = configFilename.replace(/\.ts$/, '.js')
   const jsConfigFilename = configFilename.replace('.template.js', '.js')
   const finalJsConfigFilename = await getFirstExistingFilename(
@@ -81,7 +93,18 @@ export async function rectify ({
   }
   const configure: ConfigureFn = createNextJobs.configure
   const getJobsRes = configure({ execa, fetch, fs, log })
-  const nextJobs = (await Promise.resolve(getJobsRes)) as Job[]
+  const rawUserConfig = (await Promise.resolve(getJobsRes)) as ReturnType<
+    ConfigureFn
+  >
+  const userConfig: UserConfig = Array.isArray(rawUserConfig)
+    ? { jobs: rawUserConfig }
+    : rawUserConfig
+  const { jobs: nextJobs, theme } = userConfig
+  const themes: Theme[] = ['github', 'stencil', 'stencil_dark']
+  if (theme) {
+    if (!themes.includes(theme)) { throw new Error(`invalid theme. please select from: ${themes.join(', ')}`) }
+    appState.theme = theme
+  }
   // NO ASYNC CODE PERMITTED AFTER THIS POINT
   // until the jobs meta object has been updated in the same, uninterrupted
   // event loop cycle

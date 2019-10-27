@@ -69,7 +69,7 @@ export const reload = ({
   //   module: ts.ModuleKind.CommonJS,
   // })
   // if (res.length) throw new Error(res.join('\n'))
-  return rectify({ ...appState, configFilename, log })
+  return rectify({ appState, configFilename, log })
 }
 
 export const debouncedReload = debounce(reload, 1000, {

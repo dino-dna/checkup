@@ -2,18 +2,35 @@ import { menubar } from 'menubar'
 import Electron from 'electron'
 import { prodWebIndex, isDev } from './env'
 import { resolve, dirname } from 'path'
-import { Status } from './interfaces'
+import { Status, Theme, AppState } from './interfaces'
 
 export const getStatusIcon = (
   nativeImage: typeof Electron['nativeImage'],
+  theme: Theme = 'stencil_dark',
   status: Status
 ) =>
   nativeImage
-    .createFromPath(resolve(__dirname, '..', 'assets', `status_${status}.png`))
+    .createFromPath(
+      resolve(
+        __dirname,
+        '..',
+        'assets',
+        'theme',
+        theme,
+        'status',
+        `${status}.png`
+      )
+    )
     .resize({ width: 16, height: 16 })
 
-export function create (electron: typeof Electron) {
-  const icon = getStatusIcon(electron.nativeImage, 'ok')
+export function create ({
+  appState,
+  electron
+}: {
+  electron: typeof Electron
+  appState: AppState
+}) {
+  const icon = getStatusIcon(electron.nativeImage, appState.theme, 'ok')
   const dir = dirname(prodWebIndex)
   const mb = menubar({
     browserWindow: {

@@ -33,7 +33,9 @@ export const create = ({
               : jobStatuses.some(status => status === 'pending')
                 ? 'pending'
                 : 'ok'
-      mb.tray.setImage(getStatusIcon(electron.nativeImage, trayStatus))
+      mb.tray.setImage(
+        getStatusIcon(electron.nativeImage, appState.theme, trayStatus)
+      )
       const window = getWindow()
       if (!window) {
         log({

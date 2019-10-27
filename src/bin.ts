@@ -26,12 +26,13 @@ app.on('ready', async () => {
   const electron = require('electron')
   await upsertConfigDir()
   log({ level: 'verbose', message: 'config directory created' })
-  const mb = createMenubar(electron)
   const appState: AppState = {
     actions: {} as any, // hacks
     state: 'OK',
+    theme: 'stencil_dark',
     jobs: {}
   }
+  const mb = createMenubar({ appState, electron })
   appState.actions = create({
     log,
     appState,

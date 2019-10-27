@@ -4,6 +4,7 @@ import Electron from 'electron'
 import { debounce } from 'lodash'
 import { promisify } from 'util'
 import primitivify from 'primitivify'
+import settings from 'electron-settings'
 
 import { rectify } from './jobs'
 import { AppState, Logger } from './interfaces'
@@ -76,3 +77,7 @@ export const debouncedReload = debounce(reload, 1000, {
   leading: true,
   maxWait: 5000
 })
+
+export const setTheme = (theme: any) => {
+  settings.set('theme', theme)
+}

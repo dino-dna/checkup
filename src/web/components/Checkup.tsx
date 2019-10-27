@@ -12,12 +12,13 @@ import {
 import { Body } from './Text'
 import { initialState, rootReducer } from '../reducers'
 import './Checkup.scss'
-import { Themes } from '../reducers/theme'
+import { Themes, toggle } from '../reducers/theme'
 
 export interface CheckupProps {
   onConfigure: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
   onIssue: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
   onOpenLog: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any
+  onToggleTheme: (theme: Themes) => any
   state: {
     main: AppState | null
   }
@@ -27,6 +28,7 @@ export const Checkup: React.FC<CheckupProps> = ({
   onConfigure,
   onIssue,
   onOpenLog,
+  onToggleTheme,
   state: { main }
 }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -53,11 +55,14 @@ export const Checkup: React.FC<CheckupProps> = ({
         <IssueIconButton onClick={onIssue} title='Open an issue' />
         <div className='checkup-controls-spacer' />
         <ThemeIconButton
-          onClick={() =>
+          onClick={event => {
+            // TODO: Move to middleware
+            onToggleTheme(toggle(state.theme.value))
             dispatch({
               payload: null,
               type: 'TOGGLE_THEME'
-            })}
+            })
+          }}
           theme={state.theme.value}
           title='Change theme'
         />

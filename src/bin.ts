@@ -6,6 +6,7 @@ import {
   getConfigDir,
   getConfigFilename,
   openLogFile,
+  setTheme,
   upsertConfigDir
 } from './configure'
 import { AppState, Logger } from './interfaces'
@@ -54,6 +55,8 @@ app.on('ready', async () => {
         return processLog(payload)
       case FromUi.REQUEST_OPEN_ISSUE_URL:
         return shell.openExternal(pkg.bugs)
+      case FromUi.REQUEST_SET_THEME:
+        return setTheme(payload)
       default:
         throw new Error(`unsupported message from ui: ${msg}`)
     }

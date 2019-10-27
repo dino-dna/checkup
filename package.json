@@ -42,7 +42,7 @@
     "babel-loader": "^8.0.6",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
-    "electron": "^6",
+    "electron": "^7.0.0",
     "electron-builder": "^21.2.0",
     "electron-notarize": "^0.1.1",
     "husky": "^3.0.9",

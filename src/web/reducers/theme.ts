@@ -5,6 +5,11 @@ export enum Themes {
   Light = 'light'
 }
 
+export const getInitialTheme = () => Themes.Light
+
+export const toggle = (theme: Themes) =>
+  theme === Themes.Dark ? Themes.Light : Themes.Dark
+
 export interface ThemeState {
   value: Themes
 }
@@ -13,13 +18,13 @@ export type ThemeAction = Action<'TOGGLE_THEME'>
 
 export const theme: Reducer<ThemeState, ThemeAction> = (
   state = {
-    value: Themes.Light
+    value: getInitialTheme()
   },
   action
 ) => {
   if (action.type === 'TOGGLE_THEME') {
     return {
-      value: state.value === Themes.Light ? Themes.Dark : Themes.Light
+      value: toggle(state.value)
     }
   }
 

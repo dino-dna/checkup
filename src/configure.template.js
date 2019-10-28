@@ -1,4 +1,4 @@
-module.exports.configure = ({ fs, fetch }) => {
+module.exports.configure = ({ execa, fs, fetch }) => {
   return [
     {
       name: 'my-api-status',

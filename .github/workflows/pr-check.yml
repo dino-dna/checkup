@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  pr-checks:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@master

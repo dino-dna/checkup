@@ -1,5 +1,3 @@
-@import '../_variables';
-
 .Job {
   padding: 1rem .75rem 1rem 3.5rem;
   position: relative;
@@ -7,16 +5,16 @@
 
 /// Icons
 .Job-icon {
-  color: $gray;
+  color: var(--gray);
   left: .75rem;
   position: absolute;
   top: .6rem;
 }
 .Job-icon-ok {
-  color: $green;
+  color: var(--green);
 }
 .Job-icon-error {
-  color: $red;
+  color: var(--red);
 }
 
 /// Content
@@ -28,12 +26,12 @@
 }
 
 .Job-next-run {
-  color: $gray;
+  color: var(--gray);
   display: inline-block;
   margin-left: .5rem;
 }
 .Job-message {
-  color: $red;
+  color: var(--red);
   margin-top: .625rem;
   overflow: scroll;
 }

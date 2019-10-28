@@ -1,9 +1,17 @@
-@import '../variables';
-
 .checkup {
+  background: var(--white);
+  color: var(--black);
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+// Dark theme
+.checkup-dark {
+  --black: #ffffff;
+  --gray-light: #222222;
+  --gray: #959595;
+  --white: #000000;
 }
 
 // Styleguide-only `height`
@@ -14,11 +22,14 @@
 }
 
 .checkup-content {
+  // Include the background so the UA styles the scrollbar appropriately
+  // in the dark theme
+  background: var(--white);
   flex: 2;
   overflow: scroll;
 }
 .checkup-controls {
-  border-top: 2px solid $black;
+  border-top: 2px solid var(--black);
   display: flex;
 }
 .checkup-controls-spacer {

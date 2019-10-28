@@ -1,12 +1,10 @@
-@import '../_variables';
-
 .ErrorMessage {
   padding: 1rem;
   text-align: center;
 }
 
 .ErrorMessage-icon {
-  color: $red;
+  color: var(--red);
 }
 
 .ErrorMessage-content {

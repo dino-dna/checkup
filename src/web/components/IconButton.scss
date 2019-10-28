@@ -1,9 +1,7 @@
-@import "../variables";
-
 .IconButton {
   background: none;
   border: none;
-  color: $black;
+  color: var(--black);
   cursor: pointer;
   display: inline-block;
   font: inherit;
@@ -11,11 +9,11 @@
   margin: 0;
   padding: .125rem;
   text-align: center;
-  transition: background $transition-duration;
+  transition: background 150ms;
 
   &:active,
   &:hover {
-    background: $gray-light;
+    background: var(--gray-light);
   }
 
   i {

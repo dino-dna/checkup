@@ -6,6 +6,7 @@ import { delay } from 'bluebird'
 import { FromServer, FromUi } from '../messages'
 import { LogMsg, Logger, AppState } from '../interfaces'
 import * as configure from '../configure'
+import { Themes } from './reducers/theme'
 
 const { ipcRenderer, remote } = window.require('electron')
 
@@ -28,6 +29,12 @@ const onOpenLog = () => {
   window
     .require('electron')
     .ipcRenderer.send('bus', FromUi.REQUEST_OPEN_LOG_FILE)
+}
+
+const onToggleTheme = (theme: Themes) => {
+  window
+    .require('electron')
+    .ipcRenderer.send('bus', FromUi.REQUEST_SET_THEME, theme)
 }
 
 const refreshMainState: () => any = () => {
@@ -61,20 +68,16 @@ const state: CheckupProps['state'] = {
   main: null
 }
 
-const render = () => {
-  const el = document.getElementById('app')
-
-  if (el) {
-    renderToDOM(
-      <Checkup
-        onConfigure={onConfigure}
-        onIssue={onIssue}
-        onOpenLog={onOpenLog}
-        state={state}
-      />,
-      el
-    )
-  }
-}
+const render = () =>
+  ReactDOM.render(
+    <Checkup
+      onConfigure={onConfigure}
+      onIssue={onIssue}
+      onOpenLog={onOpenLog}
+      onToggleTheme={onToggleTheme}
+      state={state}
+    />,
+    document.getElementById('app')!
+  )
 
 refreshMainState()

@@ -1,6 +1,7 @@
 import { FunctionComponent, JSX, h } from 'preact'
 import clsx from 'clsx'
 import './IconButton.scss'
+import { Themes } from '../reducers/theme'
 
 export type IconButtonProps = JSX.HTMLAttributes
 
@@ -24,5 +25,15 @@ export const IssueIconButton: FunctionComponent<IconButtonProps> = props => (
 export const FileIconButton: FunctionComponent<IconButtonProps> = props => (
   <IconButton {...props}>
     <i className='icono-file' />
+  </IconButton>
+)
+
+export const ThemeIconButton: React.FC<
+  IconButtonProps & {
+    theme: Themes
+  }
+> = ({ theme, ...rest }) => (
+  <IconButton {...rest}>
+    <i className={`icono-${theme === Themes.Dark ? 'sun' : 'moon'}`} />
   </IconButton>
 )

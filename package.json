@@ -66,6 +66,7 @@
   "scripts": {
     "build:watch": "run-p compile:watch bundle:watch",
     "build": "run-s clean compile bundle",
+    "build:animations": "npx ts-node scripts/rotate_pending.ts",
     "bundle:watch": "parcel watch --out-dir dist_web --no-hmr --public-url ./ src/web/index.html",
     "bundle": "parcel build --out-dir dist_web --public-url ./ src/web/index.html",
     "clean": "ts-node scripts/clean.ts",

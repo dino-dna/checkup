@@ -1,13 +1,12 @@
 import {
-  ConfigureFn,
   AppState,
+  ConfigureFn,
+  IconTheme,
   JobsByName,
   Logger,
-  UserConfig,
-  IconTheme
+  UserConfig
 } from './interfaces'
 import { getFirstExistingFilename } from './files'
-import { isDev } from './env'
 import * as fs from 'fs-extra'
 import execa from 'execa'
 import fetch from 'node-fetch'
@@ -24,6 +23,7 @@ const onStartPoll: (opts: {
   const nextPoll =
     (job as any).pollDurationMsDev || job.pollDurationMs || 60000 * 10
   job.state.status = 'pending'
+  actions.onStateUpdated() // notify that we have a job pending
   const jobLogger: Logger = msg =>
     log({
       ...msg,
@@ -48,9 +48,8 @@ const onStartPoll: (opts: {
       })
     })
     .then(() => {
-      const duration = ((new Date().getTime() - now.getTime()) / 1000).toFixed(
-        1
-      )
+      const moarNow = new Date().getTime()
+      const duration = ((moarNow - now.getTime()) / 1000).toFixed(1)
       log({
         level: 'info',
         message: `job ${job.name} ran in ${duration}s`

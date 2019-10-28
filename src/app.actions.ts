@@ -1,6 +1,6 @@
 import { AppState, Status, Logger } from './interfaces'
 import { FromServer } from './messages'
-import { getStatusIcon } from './menubar'
+import { setTrayImage } from './menubar'
 import { Menubar } from 'menubar'
 import Electron from 'electron'
 
@@ -33,9 +33,12 @@ export const create = ({
               : jobStatuses.some(status => status === 'pending')
                 ? 'pending'
                 : 'ok'
-      mb.tray.setImage(
-        getStatusIcon(electron.nativeImage, appState.iconTheme, trayStatus)
-      )
+      setTrayImage({
+        electron,
+        iconTheme: appState.iconTheme,
+        mb,
+        status: trayStatus
+      })
       const window = getWindow()
       if (!window) {
         log({

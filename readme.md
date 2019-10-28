@@ -3,7 +3,7 @@
 run and visualize status checks
 
 <div style='text-align: center;width: 100%; margin: auto;'>
-  <img width='100px' src='./img/statusicon.png' />
+  <img width='400px' src='./img/checkup.png' />
 </div>
 <div style='text-align: center;width: 100%; margin: auto;'>
   <img width='400px' src='./img/window.png' />

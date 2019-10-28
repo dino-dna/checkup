@@ -1,12 +1,11 @@
-import './global.scss'
+import { h, render as renderToDOM } from 'preact'
 import './icons.min.css'
+import './global.scss'
 import { Checkup, CheckupProps } from './components/Checkup'
 import { delay } from 'bluebird'
 import { FromServer, FromUi } from '../messages'
 import { LogMsg, Logger, AppState } from '../interfaces'
 import * as configure from '../configure'
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { Themes } from './reducers/theme'
 
 const { ipcRenderer, remote } = window.require('electron')
@@ -78,7 +77,7 @@ const render = () =>
       onToggleTheme={onToggleTheme}
       state={state}
     />,
-    document.getElementById('app')
+    document.getElementById('app')!
   )
 
 refreshMainState()

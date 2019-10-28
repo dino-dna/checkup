@@ -1,11 +1,11 @@
-import React from 'react'
+import { FunctionComponent, JSX, h } from 'preact'
 import moment from 'moment'
 import clsx from 'clsx'
 import { Body, Caption, Code } from './Text'
 import { Job as JobInterface } from '../../interfaces'
 import './Job.scss'
 
-export interface JobProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface JobProps extends JSX.HTMLAttributes {
   job: JobInterface
 }
 
@@ -21,7 +21,7 @@ const getNextRunEstimate = (nextRunDate?: string) => {
   return `next in: ${duration.humanize()}`
 }
 
-export const Job: React.FC<JobProps> = ({
+export const Job: FunctionComponent<JobProps> = ({
   className,
   job: {
     name,

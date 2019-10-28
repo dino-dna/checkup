@@ -1,14 +1,14 @@
-import React from 'react'
+import { FunctionComponent, JSX, h } from 'preact'
 import clsx from 'clsx'
 import './Text.scss'
 
-export interface TextProps extends React.HTMLAttributes<HTMLElement> {
+export interface TextProps extends JSX.HTMLAttributes {
   bold?: boolean
   center?: boolean
-  element?: keyof React.ReactHTML
+  element?: keyof JSX.IntrinsicElements
 }
 
-export const Text: React.FC<TextProps> = ({
+export const Text: FunctionComponent<TextProps> = ({
   bold,
   center,
   className,
@@ -28,29 +28,30 @@ export const Text: React.FC<TextProps> = ({
   />
 )
 
-export const Heading: React.FC<TextProps> = ({
+export const Heading: FunctionComponent<TextProps> = ({
   className,
   element: Component = 'h1',
   ...rest
 }) => <Text className={clsx('Text-heading', className)} {...rest} />
 
-export const Subheading: React.FC<TextProps> = ({
+export const Subheading: FunctionComponent<TextProps> = ({
   className,
   element: Component = 'h2',
   ...rest
 }) => <Text className={clsx('Text-subheading', className)} {...rest} />
 
-export const Body: React.FC<TextProps> = ({
+export const Body: FunctionComponent<TextProps> = ({
   className,
   element: Component = 'p',
   ...rest
 }) => <Text className={clsx('Text-body', className)} {...rest} />
 
-export const Caption: React.FC<TextProps> = ({ className, ...rest }) => (
-  <Text className={clsx('Text-caption', className)} {...rest} />
-)
+export const Caption: FunctionComponent<TextProps> = ({
+  className,
+  ...rest
+}) => <Text className={clsx('Text-caption', className)} {...rest} />
 
-export const Code: React.FC<TextProps & { block?: boolean }> = ({
+export const Code: FunctionComponent<TextProps & { block?: boolean }> = ({
   block,
   children,
   className,

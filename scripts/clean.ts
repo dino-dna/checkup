@@ -14,19 +14,15 @@ const glb = promisify(glob)
     )
 
     const removed = await Promise.all(
-      globs.reduce<Array<Promise<string>>>(
-        (memo, paths) => [
-          ...memo,
-          ...paths.reduce<Array<Promise<string>>>(
-            (memo2, p) =>
-              p.includes('configure.template.js')
-                ? memo2
-                : [...memo2, rm(p).then(() => p)],
-            []
-          )
-        ],
-        []
-      )
+      globs
+        .flat()
+        .reduce<Promise<string>[]>(
+          (memo, p) =>
+            p.includes('configure.template.js')
+              ? memo
+              : [...memo, rm(p).then(() => p)],
+          []
+        )
     )
 
     console.log(

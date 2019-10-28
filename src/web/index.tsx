@@ -6,8 +6,6 @@ import { delay } from 'bluebird'
 import { FromServer, FromUi } from '../messages'
 import { LogMsg, Logger, AppState } from '../interfaces'
 import * as configure from '../configure'
-import React from 'react'
-import ReactDOM from 'react-dom'
 
 const { ipcRenderer, remote } = window.require('electron')
 

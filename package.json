@@ -1,7 +1,7 @@
 {
   "name": "checkup",
   "description": "health check anything, monitor statuses with visual indicators in your status bar",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "bugs": "https://github.com/dino-dna/checkup/issues",

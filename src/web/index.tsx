@@ -69,7 +69,7 @@ const state: CheckupProps['state'] = {
 }
 
 const render = () =>
-  ReactDOM.render(
+  renderToDOM(
     <Checkup
       onConfigure={onConfigure}
       onIssue={onIssue}

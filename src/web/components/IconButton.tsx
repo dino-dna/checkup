@@ -28,7 +28,7 @@ export const FileIconButton: FunctionComponent<IconButtonProps> = props => (
   </IconButton>
 )
 
-export const ThemeIconButton: React.FC<
+export const ThemeIconButton: FunctionComponent<
   IconButtonProps & {
     theme: Themes
   }

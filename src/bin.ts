@@ -13,6 +13,8 @@ import { AppState, Logger } from './interfaces'
 import { create } from './app.actions'
 import { FromUi } from './messages'
 import { createLogger } from './logger'
+import moment = require('moment')
+
 const pkg = require('../package.json')
 
 const processLog = createLogger({
@@ -44,6 +46,22 @@ app.on('ready', async () => {
     log({ level: 'verbose', message: `event "${eventName}" triggered` })
     mb.on(eventName, () => reloadConfig(appState))
   })
+  const snoozeJob = (jobName: string) => {
+    const job = appState.jobs[jobName]
+    if (!job) return log({ level: 'warn', message: 'job not found to snooze' })
+    if (job.state.status === 'snoozed') {
+      // purge job, reload it. lazy/hacky way to de-snooze
+      delete appState.jobs[jobName]
+      return reloadConfig(appState)
+    } else {
+      job.state.status = 'snoozed'
+      job.state.snoozedUntilIsoStr = moment()
+        .add(24, 'hours')
+        .toISOString()
+    }
+    job.state.message = ''
+    appState.actions.onStateUpdated()
+  }
   reloadConfig(appState)
   ipcMain.on('bus', (_, msg: FromUi, payload: any) => {
     switch (msg) {
@@ -57,6 +75,8 @@ app.on('ready', async () => {
         return shell.openExternal(pkg.bugs)
       case FromUi.REQUEST_SET_THEME:
         return setTheme(payload)
+      case FromUi.TOGGLE_SNOOZE_JOB:
+        return snoozeJob(payload.jobName)
       default:
         throw new Error(`unsupported message from ui: ${msg}`)
     }

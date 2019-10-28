@@ -9,11 +9,15 @@ export enum Themes {
 // TODO: Refactor to pass with initial `appState`?
 // https://github.com/nathanbuchar/electron-settings/wiki/FAQs#can-i-use-electron-settings-in-both-the-main-and-renderer-processes
 export const getInitialTheme = () => {
-  const theme = window
-    .require('electron')
-    .remote.require('electron-settings')
-    .get('theme')
-  return theme || Themes.Light
+  try {
+    const theme = window
+      .require('electron')
+      .remote.require('electron-settings')
+      .get('theme')
+    return theme || Themes.Light
+  } catch {
+    return Themes.Light
+  }
 }
 
 export const toggle = (theme: Themes) =>

@@ -35,3 +35,16 @@
   margin-top: .625rem;
   overflow: scroll;
 }
+
+.icono-sync {
+  animation: rotate 500ms linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+
+}

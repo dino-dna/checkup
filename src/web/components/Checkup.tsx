@@ -1,7 +1,7 @@
 import { useReducer } from 'preact/hooks'
 import clsx from 'clsx'
 import { FunctionComponent, JSX, h } from 'preact'
-import { Statuses } from './Statuses'
+import { Statuses, StatusesProps } from './Statuses'
 import { AppState } from '../../interfaces'
 import { ErrorMessage } from './ErrorMessage'
 import {
@@ -20,6 +20,7 @@ export interface CheckupProps {
   onConfigure: JSX.MouseEventHandler
   onIssue: JSX.MouseEventHandler
   onOpenLog: JSX.MouseEventHandler
+  onSnooze: StatusesProps['onSnooze']
   state: {
     main: AppState | null
   }
@@ -30,6 +31,7 @@ export const Checkup: FunctionComponent<CheckupProps> = ({
   onIssue,
   onOpenLog,
   onToggleTheme,
+  onSnooze,
   state: { main }
 }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -42,7 +44,10 @@ export const Checkup: FunctionComponent<CheckupProps> = ({
     >
       <main className='checkup-content'>
         {main && main.state === 'OK' ? (
-          <Statuses jobs={main ? Object.values(main.jobs) : []} />
+          <Statuses
+            onSnooze={onSnooze}
+            jobs={main ? Object.values(main.jobs) : []}
+          />
         ) : (
           <ErrorMessage title='Bad config'>
             <Body>

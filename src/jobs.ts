@@ -9,6 +9,7 @@ import {
 import { getFirstExistingFilename } from './files'
 import * as fs from 'fs-extra'
 import execa from 'execa'
+import moment from 'moment'
 import fetch from 'node-fetch'
 const nodeEval = require('node-eval')
 
@@ -22,6 +23,22 @@ const onStartPoll: (opts: {
   const job = jobs[name]
   const nextPoll =
     (job as any).pollDurationMsDev || job.pollDurationMs || 60000 * 10
+  if (
+    job.state.snoozedUntilIsoStr &&
+    moment(job.state.snoozedUntilIsoStr).isAfter(moment(now))
+  ) {
+    const snoozedUntilDuration = moment.duration({
+      from: moment(),
+      to: moment(job.state.snoozedUntilIsoStr)
+    })
+    return log({
+      level: 'info',
+      message: `job ${
+        job.name
+      } snoozed for another: ${snoozedUntilDuration.humanize()}`
+    })
+  }
+  job.state.snoozedUntilIsoStr = ''
   job.state.status = 'pending'
   actions.onStateUpdated() // notify that we have a job pending
   const jobLogger: Logger = msg =>
@@ -116,7 +133,7 @@ export async function rectify ({
     if (!oldJob) {
       // init new state
       log({ level: 'info', message: `job "${job.name}" created` })
-      job.state = { status: 'pending' }
+      job.state = { status: 'pending', snoozedUntilIsoStr: '' }
       onStartPoll({
         name: job.name,
         jobs,

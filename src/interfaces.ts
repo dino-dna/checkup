@@ -4,7 +4,7 @@ import Fetch from 'node-fetch'
 import fs from 'fs-extra'
 
 export type IconTheme = 'github' | 'stencil' | 'stencil_dark'
-export type Status = 'ok' | 'pending' | 'not_ok'
+export type Status = 'ok' | 'pending' | 'not_ok' | 'snoozed'
 
 export type ProcessName = 'main' | 'renderer'
 export type Level = 'info' | 'warn' | 'error' | 'verbose'
@@ -37,13 +37,14 @@ export type Job = {
   pollDurationMs?: number
   name: string
   state: {
-    status: Status
-    nextRunDate?: Date
-    message?: string
+    lastFailure?: Date
     lastRunDate?: Date
     lastSuccess?: Date
-    lastFailure?: Date
+    message?: string
+    nextRunDate?: Date
     nextRunTimer?: NodeJS.Timeout
+    status: Status
+    snoozedUntilIsoStr: string
   }
 }
 export type UserConfig = { theme?: IconTheme; jobs: Job[] }

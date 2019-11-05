@@ -1,12 +1,12 @@
-import { h, render as renderToDOM } from 'preact'
-import './icons.min.css'
 import './global.scss'
+import './icons.min.css'
 import { Checkup, CheckupProps } from './components/Checkup'
 import { delay } from 'bluebird'
 import { FromServer, FromUi } from '../messages'
+import { h, render as renderToDOM } from 'preact'
 import { LogMsg, Logger, AppState } from '../interfaces'
-import * as configure from '../configure'
 import { Themes } from './reducers/theme'
+import * as configure from '../configure'
 
 const { ipcRenderer, remote } = window.require('electron')
 
@@ -36,6 +36,11 @@ const onToggleTheme = (theme: Themes) => {
     .require('electron')
     .ipcRenderer.send('bus', FromUi.REQUEST_SET_THEME, theme)
 }
+
+const onSnooze = (jobName: string) =>
+  window
+    .require('electron')
+    .ipcRenderer.send('bus', FromUi.TOGGLE_SNOOZE_JOB, { jobName })
 
 const refreshMainState: () => any = () => {
   const conf: typeof configure = remote.require('./configure')
@@ -72,6 +77,7 @@ const render = () =>
   renderToDOM(
     <Checkup
       onConfigure={onConfigure}
+      onSnooze={onSnooze}
       onIssue={onIssue}
       onOpenLog={onOpenLog}
       onToggleTheme={onToggleTheme}

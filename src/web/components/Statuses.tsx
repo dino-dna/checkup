@@ -1,11 +1,14 @@
-import { Fragment, h } from 'preact'
-import clsx from 'clsx'
+import { h } from 'preact'
 import { Job as JobInterface } from '../../interfaces'
 import { Body } from './Text'
-import { Job } from './Job'
+import { Job, JobProps } from './Job'
 import './Statuses.scss'
 
-export const Statuses = ({ jobs }: { jobs: JobInterface[] }) => {
+export type StatusesProps = {
+  onSnooze: JobProps['onSnooze']
+  jobs: JobInterface[]
+}
+export const Statuses = ({ onSnooze, jobs }: StatusesProps) => {
   return !jobs.length ? (
     <div className='Statuses'>
       <Body
@@ -16,11 +19,13 @@ export const Statuses = ({ jobs }: { jobs: JobInterface[] }) => {
     </div>
   ) : (
     <ol className='Statuses'>
-      {jobs.map(job => (
-        <li key={job.name}>
-          <Job job={job} />
-        </li>
-      ))}
+      {jobs
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
+        .map(job => (
+          <li key={job.name}>
+            <Job onSnooze={onSnooze} job={job} />
+          </li>
+        ))}
     </ol>
   )
 }

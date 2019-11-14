@@ -6,6 +6,9 @@ import { notarize } from 'electron-notarize'
 const pkg = require('../../package.json')
 
 module.exports = async function maybeNotarize (params: any) {
+  if (process.env.NODE_ENV === 'development') {
+    return console.warn('skipping notarization, NODE_ENV=development')
+  }
   if (process.platform !== 'darwin') {
     return console.warn('skipping notarization, not OSX Darwin')
   }

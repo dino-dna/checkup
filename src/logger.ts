@@ -15,7 +15,7 @@ export const createLogger = ({ dirname, level }: LoggerOptions) => {
     datePattern: 'YYYY-MM-DD-HH',
     zippedArchive: true,
     maxSize: '20m',
-    maxFiles: '5d'
+    maxFiles: '2d'
   })
   const winstonLogger = winston.createLogger({
     level: level || (isDev ? 'verbose' : 'info'),

@@ -17,9 +17,9 @@ import { Themes, toggle } from '../reducers/theme'
 
 export interface CheckupProps {
   onToggleTheme: (theme: Themes) => any
-  onConfigure: JSX.MouseEventHandler
-  onIssue: JSX.MouseEventHandler
-  onOpenLog: JSX.MouseEventHandler
+  onConfigure: JSX.MouseEventHandler<any>
+  onIssue: JSX.MouseEventHandler<any>
+  onOpenLog: JSX.MouseEventHandler<any>
   onSnooze: StatusesProps['onSnooze']
   state: {
     main: AppState | null

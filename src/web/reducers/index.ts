@@ -1,8 +1,8 @@
-import { combineReducers, getInitialState } from './utils'
-import { theme } from './theme'
+import { combineReducers, getInitialState } from "./utils";
+import { theme } from "./theme";
 
 export const rootReducer = combineReducers({
-  theme
-})
+  theme,
+});
 
-export const initialState = getInitialState(rootReducer)
+export const initialState = getInitialState(rootReducer);

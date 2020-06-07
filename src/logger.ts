@@ -1,27 +1,27 @@
-import winston, { format } from 'winston'
-import { ProcessLogger } from './interfaces'
-import { isDev } from './env'
-import DailyRotateFile from 'winston-daily-rotate-file'
+import winston, { format } from "winston";
+import { ProcessLogger } from "./interfaces";
+import { isDev } from "./env";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 export type LoggerOptions = {
-  dirname: string
-  level?: string
-}
+  dirname: string;
+  level?: string;
+};
 
 export const createLogger = ({ dirname, level }: LoggerOptions) => {
   var transport = new DailyRotateFile({
     dirname,
-    filename: 'checkup-%DATE%.log',
-    datePattern: 'YYYY-MM-DD-HH',
+    filename: "checkup-%DATE%.log",
+    datePattern: "YYYY-MM-DD-HH",
     zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '2d'
-  })
+    maxSize: "20m",
+    maxFiles: 3,
+  });
   const winstonLogger = winston.createLogger({
-    level: level || (isDev ? 'verbose' : 'info'),
+    level: level || (isDev ? "verbose" : "info"),
     format: format.combine(
       format.timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss'
+        format: "YYYY-MM-DD HH:mm:ss",
       }),
       winston.format.simple()
     ),
@@ -29,13 +29,13 @@ export const createLogger = ({ dirname, level }: LoggerOptions) => {
     transports: [
       isDev ? new winston.transports.Console() : (null as any),
       // new winston.transports.File({ filename: 'error.log', level: 'error' }),
-      transport
-    ].filter(i => !!i)
-  })
+      transport,
+    ].filter((i) => !!i),
+  });
   const logger: ProcessLogger = ({ level, message, tags, processName }) => {
-    const meta: any = { processName }
-    if (tags && tags.length) meta.tags = tags
-    winstonLogger.log(level, message, meta)
-  }
-  return logger
-}
+    const meta: any = { processName };
+    if (tags && tags.length) meta.tags = tags;
+    winstonLogger.log(level, message, meta);
+  };
+  return logger;
+};

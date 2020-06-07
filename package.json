@@ -1,7 +1,7 @@
 {
   "name": "checkup",
   "description": "health check anything, monitor statuses with visual indicators in your status bar",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "bugs": "https://github.com/dino-dna/checkup/issues",
@@ -54,7 +54,7 @@
     "lint-staged": "^9.4.2",
     "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
-    "prettier-standard": "^15.0.1",
+    "prettier": "^2.0.5",
     "react-styleguidist": "^9.2.0",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
@@ -76,8 +76,9 @@
     "compile:watch": "tsc -w",
     "dist": "cross-env DEBUG=electron-builder electron-builder",
     "electron": "cross-env NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
-    "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'",
-    "lint": "standardx '{src,test,scripts}/**/*.{js,jsx,ts,tsx}' --fix",
+    "format:all": "prettier '{src,test,scripts}/**/*.{ts,tsx}' --write",
+    "format": "prettier --write",
+    "lint": "prettier '{src,test,scripts}/**/*.{ts,tsx}' --check",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
     "release": "electron-builder --publish always",
@@ -103,7 +104,7 @@
     }
   },
   "lint-staged": {
-    "{src,test,scripts}/**/*.{js,jsx,ts,tsx}": [
+    "{src,test,scripts}/**/*.{ts,tsx}": [
       "yarn format",
       "yarn lint",
       "git add"
@@ -113,15 +114,6 @@
     "rules": {
       "no-unused-vars": 0
     }
-  },
-  "standardx": {
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint/eslint-plugin"
-    ],
-    "ignore": [
-      "**/*.d.ts"
-    ]
   },
   "ava": {
     "babel": false,

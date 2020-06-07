@@ -1,8 +1,8 @@
-import { Action, Reducer } from './utils'
+import { Action, Reducer } from "./utils";
 
 export enum Themes {
-  Dark = 'dark',
-  Light = 'light'
+  Dark = "dark",
+  Light = "light",
 }
 
 // Fetch from main process
@@ -11,35 +11,35 @@ export enum Themes {
 export const getInitialTheme = () => {
   try {
     const theme = window
-      .require('electron')
-      .remote.require('electron-settings')
-      .get('theme')
-    return theme || Themes.Light
+      .require("electron")
+      .remote.require("electron-settings")
+      .get("theme");
+    return theme || Themes.Light;
   } catch {
-    return Themes.Light
+    return Themes.Light;
   }
-}
+};
 
 export const toggle = (theme: Themes) =>
-  theme === Themes.Dark ? Themes.Light : Themes.Dark
+  theme === Themes.Dark ? Themes.Light : Themes.Dark;
 
 export interface ThemeState {
-  value: Themes
+  value: Themes;
 }
 
-export type ThemeAction = Action<'TOGGLE_THEME'>
+export type ThemeAction = Action<"TOGGLE_THEME">;
 
 export const theme: Reducer<ThemeState, ThemeAction> = (
   state = {
-    value: getInitialTheme()
+    value: getInitialTheme(),
   },
   action
 ) => {
-  if (action.type === 'TOGGLE_THEME') {
+  if (action.type === "TOGGLE_THEME") {
     return {
-      value: toggle(state.value)
-    }
+      value: toggle(state.value),
+    };
   }
 
-  return state
-}
+  return state;
+};

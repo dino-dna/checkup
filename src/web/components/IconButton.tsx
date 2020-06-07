@@ -1,39 +1,39 @@
-import { FunctionComponent, JSX, h } from 'preact'
-import clsx from 'clsx'
-import './IconButton.scss'
-import { Themes } from '../reducers/theme'
+import { FunctionComponent, JSX, h } from "preact";
+import clsx from "clsx";
+import "./IconButton.scss";
+import { Themes } from "../reducers/theme";
 
-export type IconButtonProps = JSX.HTMLAttributes
+export type IconButtonProps = JSX.HTMLAttributes;
 
 export const IconButton: FunctionComponent<IconButtonProps> = ({
   className,
   ...rest
-}) => <button className={clsx('IconButton', className)} {...rest} />
+}) => <button className={clsx("IconButton", className)} {...rest} />;
 
-export const GearIconButton: FunctionComponent<IconButtonProps> = props => (
+export const GearIconButton: FunctionComponent<IconButtonProps> = (props) => (
   <IconButton {...props}>
-    <i className='icono-gear' />
+    <i className="icono-gear" />
   </IconButton>
-)
+);
 
-export const IssueIconButton: FunctionComponent<IconButtonProps> = props => (
+export const IssueIconButton: FunctionComponent<IconButtonProps> = (props) => (
   <IconButton {...props}>
-    <i className='icono-exclamationCircle' />
+    <i className="icono-exclamationCircle" />
   </IconButton>
-)
+);
 
-export const FileIconButton: FunctionComponent<IconButtonProps> = props => (
+export const FileIconButton: FunctionComponent<IconButtonProps> = (props) => (
   <IconButton {...props}>
-    <i className='icono-file' />
+    <i className="icono-file" />
   </IconButton>
-)
+);
 
 export const ThemeIconButton: FunctionComponent<
   IconButtonProps & {
-    theme: Themes
+    theme: Themes;
   }
 > = ({ theme, ...rest }) => (
   <IconButton {...rest}>
-    <i className={`icono-${theme === Themes.Dark ? 'sun' : 'moon'}`} />
+    <i className={`icono-${theme === Themes.Dark ? "sun" : "moon"}`} />
   </IconButton>
-)
+);

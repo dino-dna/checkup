@@ -1,7 +1,7 @@
 {
   "name": "checkup",
   "description": "health check anything, monitor statuses with visual indicators in your status bar",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "main": "src/bin.js",
   "repository": "git@github.com:dino-dna/checkup.git",
   "bugs": "https://github.com/dino-dna/checkup/issues",
@@ -58,7 +58,6 @@
     "react-styleguidist": "^9.2.0",
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
-    "standardx": "^5.0.0",
     "style-loader": "^1.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
@@ -66,7 +65,7 @@
     "webpack": "^4.41.2"
   },
   "scripts": {
-    "build:watch": "run-p compile:watch bundle:watch",
+    "build:watch": "cross-env ELECTRON_IS_DEV=1 run-p compile:watch bundle:watch",
     "build": "run-s clean compile bundle",
     "build:animations": "npx ts-node scripts/rotate_pending.ts",
     "bundle:watch": "parcel watch --out-dir dist_web --no-hmr --public-url ./ src/web/index.html",
@@ -76,6 +75,7 @@
     "compile:watch": "tsc -w",
     "dist": "cross-env DEBUG=electron-builder electron-builder",
     "electron": "cross-env NODE_ENV=production ELECTRON_IS_DEV= electron src/bin.js",
+    "electron:dev": "cross-env NODE_ENV=development ELECTRON_IS_DEV=1 electron src/bin.js",
     "format:all": "prettier '{src,test,scripts}/**/*.{ts,tsx}' --write",
     "format": "prettier --write",
     "lint": "prettier '{src,test,scripts}/**/*.{ts,tsx}' --check",

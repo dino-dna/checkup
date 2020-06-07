@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Body, Caption, Code } from "./Text";
 import { Job as JobInterface } from "../../interfaces";
 import "./Job.scss";
+import { isDev } from "../../env";
 const snoozeUrl = require("../img/snooze/snooze.png");
 require("dragscroll");
 
@@ -40,7 +41,7 @@ export const Job: FunctionComponent<JobProps> = ({
   ...rest
 }) => {
   const actions = {
-    isSnoozeActionVisible: status !== "ok",
+    isSnoozeActionVisible: isDev || status !== "ok",
   };
   const actionCount = Object.values(actions).filter((i) => i).length;
   return (

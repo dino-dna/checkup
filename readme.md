@@ -50,6 +50,8 @@ if you would like `checkup` to start when your mac starts up, go to `System Pref
 
 #### config.js
 
+[See the default, template config here](src/configure.template.js).
+
 - export a `configure` function with signature:
 
   - `module.exports.configure = (toolkit) => [ ...jobs ]`, or
@@ -91,8 +93,10 @@ module.exports.configure = ({ fs, execa, fetch }) => [/* ... */]
 
 ### not into javascript?
 
-not a js fan? or, perhaps you just want to run some other binary?
-no problem--just fire off a subprocess to run _your thing_. you can `require('child_process')` and use that, but i strongly advise using `execa`, which is passed in for you:
+Not a js fan? Perhaps you just want to run some other binary for a health check?
+We get it. No problem--just fire off a subprocess to run _your thing_.
+You can `require('child_process')` and use that, but it's advised to use the
+`execa` function, which is passed in for you:
 
 ```js
 // config.js

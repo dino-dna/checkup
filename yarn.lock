@@ -7723,10 +7723,10 @@ memorystream@^0.3.1:
   resolved "https://registry.yarnpkg.com/memorystream/-/memorystream-0.3.1.tgz#86d7090b30ce455d63fbae12dda51a47ddcaf9b2"
   integrity sha1-htcJCzDORV1j+64S3aUaR93K+bI=
 
-menubar@^6.0.8:
-  version "6.0.8"
-  resolved "https://registry.yarnpkg.com/menubar/-/menubar-6.0.8.tgz#deff4b4227c73149f6316c481accb1486e7c9e7f"
-  integrity sha512-S02SLiqec8MAUbV2vsUThh0P9XPKS9mrHVN3c/6T1g+tuHwFX7TRup3xCAjIGCO+Hxs32tWmjqVh4KjBGIXudQ==
+menubar@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/menubar/-/menubar-9.0.1.tgz#49d8d73ee0b515d6621d644fa96647e3dfc8ac3c"
+  integrity sha512-r4NdeG3CDb9BQ0w8WffWw2JT+Pugn22hKCb4niNuXMzK3WphY+RX2WmTPlZdIZfpNxVNKAo/mbuGfVP6LGGeJw==
   dependencies:
     electron-positioner "^4.1.0"
 

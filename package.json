@@ -20,7 +20,7 @@
     "execa": "^3.2.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
-    "menubar": "^6.0.8",
+    "menubar": "^9.0.1",
     "moment": "^2.24.0",
     "node-eval": "^2.0.0",
     "node-fetch": "^2.6.0",

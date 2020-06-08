@@ -16,6 +16,9 @@ const log: Logger = (log) =>
     ...log,
   } as LogMsg);
 
+// @debug - loud log mode
+// setInterval(() => log({ level: "info", message: "get loud! "}), 20)
+
 const onConfigure = () =>
   ipcRenderer.send("bus", FromUi.REQUEST_OPEN_CONFIG_FOLDER);
 

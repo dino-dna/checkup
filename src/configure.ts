@@ -35,7 +35,7 @@ export const openLogFile = async (electron: typeof Electron) => {
   const lastLogFile = files
     .sort()
     .reverse()
-    .find((f) => /^checkup.*log$/.test(f));
+    .find((f) => /^checkup.log.[^(gz)]*$/.test(f));
 
   if (!lastLogFile) {
     throw new Error("Could not find log files");

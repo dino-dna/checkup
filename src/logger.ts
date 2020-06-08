@@ -12,9 +12,9 @@ export const createLogger = ({ dirname, level }: LoggerOptions) => {
   var transport = new DailyRotateFile({
     dirname,
     filename: "checkup.log",
-    datePattern: "YYYY-MM-DD-HH",
+    datePattern: "YYYY",
     zippedArchive: true,
-    maxSize: isDev ? "100k" : "5m",
+    maxSize: isDev ? "5k" : "5m",
     maxFiles: 3,
   });
   const winstonLogger = winston.createLogger({

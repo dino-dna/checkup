@@ -10,7 +10,7 @@
   "dependencies": {
     "@types/bluebird": "^3.5.28",
     "@types/fs-extra": "^8.0.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^14.14.6",
     "@types/node-fetch": "^2.5.2",
     "application-config-path": "^0.1.0",
     "bluebird": "^3.7.1",

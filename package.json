@@ -17,7 +17,7 @@
     "clsx": "^1.0.4",
     "dragscroll": "^0.0.8",
     "electron-settings": "^3.2.0",
-    "execa": "^3.2.0",
+    "execa": "^5.0.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "menubar": "^9.0.1",

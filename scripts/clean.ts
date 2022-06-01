@@ -13,6 +13,7 @@ const glb = promisify(glob);
         "dist",
         "dist_web",
         "{scripts,src,test}/**/*.{js,js.map}",
+        ".parcel-cache",
       ].map((p) => glb(path.resolve(__dirname, "..", p)))
     );
 

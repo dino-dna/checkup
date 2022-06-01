@@ -1,13 +1,14 @@
 import { copyFile, mkdirp, lstat, readdir } from "fs-extra";
 import path, { resolve } from "path";
-import Electron from "electron";
+import Electron, { ipcMain } from "electron";
 import { debounce } from "lodash";
 import { promisify } from "util";
 import primitivify from "primitivify";
-import settings from "electron-settings";
+const settings = require("electron-settings");
 
 import { rectify } from "./jobs";
 import { AppState, Logger } from "./interfaces";
+import { any } from "bluebird";
 
 const applicationConfigPath = require("application-config-path");
 
@@ -81,3 +82,5 @@ export const debouncedReload = debounce(reload, 1000, {
 export const setTheme = (theme: any) => {
   settings.set("theme", theme);
 };
+
+ipcMain.handle("configure:getAppState", () => dangerousAppStateRef);

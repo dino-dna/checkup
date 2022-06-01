@@ -1,5 +1,3 @@
-import "./global.scss";
-import "./icons.min.css";
 import { Checkup, CheckupProps } from "./components/Checkup";
 import { delay } from "bluebird";
 import { FromServer, FromUi } from "../messages";
@@ -7,8 +5,7 @@ import { h, render as renderToDOM } from "preact";
 import { LogMsg, Logger, AppState } from "../interfaces";
 import { Themes } from "./reducers/theme";
 import * as configure from "../configure";
-
-const { ipcRenderer, remote } = window.require("electron");
+import { ipcRenderer } from "electron";
 
 const log: Logger = (log) =>
   ipcRenderer.send("bus", FromUi.LOG, {
@@ -45,9 +42,11 @@ const onSnooze = (jobName: string) =>
     .require("electron")
     .ipcRenderer.send("bus", FromUi.TOGGLE_SNOOZE_JOB, { jobName });
 
-const refreshMainState: () => any = () => {
-  const conf: typeof configure = remote.require("./configure");
-  const nextState: AppState | null = JSON.parse(conf.getJsonState());
+const refreshMainState = async (): Promise<void> => {
+  const nextState: AppState | null = JSON.parse(
+    await ipcRenderer.invoke("configure:getAppState")
+  );
+  debugger;
   if (!nextState) {
     return delay(100).then(refreshMainState);
   }

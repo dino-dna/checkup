@@ -6,13 +6,10 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-      "program": "${workspaceRoot}/src/bin.js",
-      "sourceMaps": true,
+      "program": "${workspaceRoot}/dist/main/bin.js",
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",
-      "skipFiles": [
-        "<node_internals>/**/*.js"
-      ],
+      "skipFiles": ["<node_internals>/**/*.js"],
       "env": {
         "ELECTRON_IS_DEV": 1
       }
@@ -22,12 +19,8 @@
       "request": "launch",
       "name": "test - file",
       "program": "${workspaceFolder}/node_modules/ava/profile.js",
-      "args": [
-        "${file}"
-      ],
-      "skipFiles": [
-        "<node_internals>/**/*.js"
-      ],
+      "args": ["${file}"],
+      "skipFiles": ["<node_internals>/**/*.js"],
       "env": {
         "NODE_ENV": "test"
       }

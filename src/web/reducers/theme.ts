@@ -1,3 +1,4 @@
+import { ipcRenderer } from "electron/renderer";
 import { Action, Reducer } from "./utils";
 
 export enum Themes {
@@ -9,15 +10,7 @@ export enum Themes {
 // TODO: Refactor to pass with initial `appState`?
 // https://github.com/nathanbuchar/electron-settings/wiki/FAQs#can-i-use-electron-settings-in-both-the-main-and-renderer-processes
 export const getInitialTheme = () => {
-  try {
-    const theme = window
-      .require("electron")
-      .remote.require("electron-settings")
-      .get("theme");
-    return theme || Themes.Light;
-  } catch {
-    return Themes.Light;
-  }
+  return Themes.Light;
 };
 
 export const toggle = (theme: Themes) =>

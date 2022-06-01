@@ -108,9 +108,9 @@ export async function rectify({
   }
   const configure: ConfigureFn = createNextJobs.configure;
   const getJobsRes = configure({ execa, fetch, fs, log });
-  const rawUserConfig = (await Promise.resolve(getJobsRes)) as ReturnType<
-    ConfigureFn
-  >;
+  const rawUserConfig = (await Promise.resolve(
+    getJobsRes
+  )) as ReturnType<ConfigureFn>;
   const userConfig: UserConfig = Array.isArray(rawUserConfig)
     ? { jobs: rawUserConfig }
     : rawUserConfig;

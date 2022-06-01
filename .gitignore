@@ -9,3 +9,4 @@ dist_web
 .cache
 *.log
 .DS_Store
+.parcel-cache

@@ -15,15 +15,13 @@ export type ReducersMapObject<S, A extends Action> = {
 
 type ValueOf<T> = T[keyof T];
 
-export type ActionFromReducersMapObject<
-  M extends ReducersMapObject<any, any>
-> = ValueOf<{ [K in keyof M]: M[K] extends Reducer<any, infer A> ? A : never }>;
+export type ActionFromReducersMapObject<M extends ReducersMapObject<any, any>> =
+  ValueOf<{ [K in keyof M]: M[K] extends Reducer<any, infer A> ? A : never }>;
 
 export type StateFromReducer<R> = R extends Reducer<infer S, any> ? S : never;
 
-export type StateFromReducersMapObject<
-  M extends ReducersMapObject<any, any>
-> = { [K in keyof M]: M[K] extends Reducer<infer S, any> ? S : never };
+export type StateFromReducersMapObject<M extends ReducersMapObject<any, any>> =
+  { [K in keyof M]: M[K] extends Reducer<infer S, any> ? S : never };
 
 const INIT_ACTION: Action<"__INIT__"> = {
   payload: null,

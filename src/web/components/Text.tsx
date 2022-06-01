@@ -1,18 +1,23 @@
 import { FunctionComponent, JSX, h } from "preact";
 import clsx from "clsx";
 import "./Text.scss";
+import { JSXInternal } from "preact/src/jsx";
 
 export interface TextProps extends JSX.HTMLAttributes {
   bold?: boolean;
   center?: boolean;
-  element?: keyof JSX.IntrinsicElements;
+  element?: FunctionComponent<JSXInternal.HTMLAttributes<any>>;
 }
+
+const Span: FunctionComponent<JSXInternal.HTMLAttributes<HTMLSpanElement>> = (
+  props
+) => <span {...props} />;
 
 export const Text: FunctionComponent<TextProps> = ({
   bold,
   center,
   className,
-  element: Component = "span",
+  element: Component = Span,
   ...rest
 }) => (
   <Component

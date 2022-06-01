@@ -15,7 +15,7 @@ Show your health checks as a statusbar icon, and watch it update in realtime.
 <img style="display: block" src='./img/menubar_fail.png' />
 <img style="display: block" src='./img/menubar_busy.png' />
 
-Check your network service.  check your system daemons.  check your hardware.  check heartbeats, or check workflows.  check with scripts, check with binaries, check with docker, check with `<whatever>`.  we don't care what you check, we just provide a small interface and ui to present those checks in :)
+Check your network service. check your system daemons. check your hardware. check heartbeats, or check workflows. check with scripts, check with binaries, check with docker, check with `<whatever>`. we don't care what you check, we just provide a small interface and ui to present those checks in :)
 
 ## install
 
@@ -23,7 +23,7 @@ Download the application from the [releases page, here](https://github.com/dino-
 
 ## usage
 
-Upon installation, you already have a working instance, with dummy checks installed and running.  let's add your own.
+Upon installation, you already have a working instance, with dummy checks installed and running. let's add your own.
 
 - open the app, and click the configure button
 - open the `config.js` file in the opened directory
@@ -32,8 +32,9 @@ Upon installation, you already have a working instance, with dummy checks instal
 
 ```ts
 // minimal config
-module.exports.configure = (ctx) =>
-  [{ name: 'random-check', fn: () => Math.random() > 0.5 }]
+module.exports.configure = (ctx) => [
+  { name: "random-check", fn: () => Math.random() > 0.5 },
+];
 ```
 
 - save.
@@ -85,10 +86,14 @@ because so many health check operations are centered around local and remote i/o
 
 ```js
 // config.js
-module.exports.configure = (toolkit) => [/* ... */]
+module.exports.configure = (toolkit) => [
+  /* ... */
+];
 
 // config.js
-module.exports.configure = ({ fs, execa, fetch }) => [/* ... */]
+module.exports.configure = ({ fs, execa, fetch }) => [
+  /* ... */
+];
 ```
 
 ### not into javascript?
@@ -101,10 +106,12 @@ You can `require('child_process')` and use that, but it's advised to use the
 ```js
 // config.js
 // @example - child process
-module.exports.configure = ({ execa }) => [{
-  name: 'disk-check',
-  fn: () => execa('fsck', ['-fy', '/dev/sda2'])
-}]
+module.exports.configure = ({ execa }) => [
+  {
+    name: "disk-check",
+    fn: () => execa("fsck", ["-fy", "/dev/sda2"]),
+  },
+];
 ```
 
 ## contributing
@@ -112,7 +119,7 @@ module.exports.configure = ({ execa }) => [{
 ### bootstrap
 
 - `nvm use`
-- `yarn`
-- `yarn build:watch`
-  - starts the compiler and the web bundler
-- `yarn electron` from another shell. alternatively, use the VSCode launch configuration to boot the app
+- `pnpm i`
+- `pnpm build:watch`
+  - starts the parcel compiler for electron-renderer and electron-main bundles
+- `pnpm run electron` from another shell. alternatively, use the VSCode launch configuration to boot the app

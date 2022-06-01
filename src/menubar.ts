@@ -1,7 +1,7 @@
 import { menubar, Menubar } from "menubar";
 import Electron from "electron";
 import { prodWebIndex, isDev } from "./env";
-import { resolve, dirname } from "path";
+import path, { resolve, dirname } from "path";
 import { Status, AppState, IconTheme } from "./interfaces";
 
 type NextIconToolkit = {
@@ -109,6 +109,7 @@ export function create({
       webPreferences: {
         devTools: isDev,
         nodeIntegration: true,
+        preload: resolve(__dirname, "preload"),
       },
     },
     dir,
@@ -116,6 +117,7 @@ export function create({
     preloadWindow: isDev,
   });
   mb.on("ready", () => {
+    debugger;
     isDev && (mb as any)._browserWindow.openDevTools();
   });
   return mb;

@@ -34,8 +34,7 @@ module.exports.configure = ({ execa, fs, fetch }) => {
             referrer:
               "https://www.airnow.gov/?city=Albuquerque&state=NM&country=USA",
             referrerPolicy: "no-referrer-when-downgrade",
-            body:
-              "latitude=35.0844&longitude=-106.65114&stateCode=NM&maxDistance=50",
+            body: "latitude=35.0844&longitude=-106.65114&stateCode=NM&maxDistance=50",
             method: "POST",
           }
         ).then((res) => res.json());
